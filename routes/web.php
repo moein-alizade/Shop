@@ -21,3 +21,9 @@ Route::get('/', function () {
 Route::get('adminpanel', function () {
     return view('admin.home');
 });
+
+
+
+Route::get('/adminpanel/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'index']);
+Route::get('/adminpanel/categories/create', [\App\Http\Controllers\Admin\CategoryController::class, 'create']);
+Route::post('/adminpanel/categories/store', [\App\Http\Controllers\Admin\CategoryController::class, 'store']);
