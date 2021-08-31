@@ -32,10 +32,10 @@
                                         <td>{{$category->title}}</td>
                                         <td>{{optional($category->parent)->title}}</td>
                                         <td>
-                                            <a href="/adminpanel/categories/{{$category->id}}/edit" class="btn btn-sm btn-primary">ویرایش</a>
+                                            <a href="{{route('categories.edit', $category)}}" class="btn btn-sm btn-primary">ویرایش</a>
                                         </td>
                                         <td>
-                                            <form action="/adminpanel/categories/{{$category->id}}" method="post">
+                                            <form action="{{route('categories.destroy', $category)}}" method="post">
                                                 @csrf
                                                 @method('delete')
                                                 <input type="submit" class="btn btn-sm btn-danger" value="حذف">

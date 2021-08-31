@@ -89,7 +89,7 @@ class CategoryController extends Controller
             'title' => $request->get('title')
         ]);
 
-        return redirect('/adminpanel/categories');
+        return redirect(route('categories.index'));
     }
 
     /**

@@ -11,7 +11,7 @@
                     <h3 class="box-title">ایجاد دسته بندی</h3>
                 </div>
                 <div class="box-body">
-                    <form action="/adminpanel/categories/store" method="post">
+                    <form action="{{route('categories.store')}}" method="post">
                         @csrf
                         <div class="form-group">
                             <lable for="category_id">دسته والد</lable>

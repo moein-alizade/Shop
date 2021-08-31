@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,17 +19,20 @@ Route::get('/', function () {
 });
 
 
-Route::get('adminpanel', function () {
-    return view('admin.home');
+
+Route::prefix('/adminpanel')->group(function() {
+    Route::get('/', function () {
+        return view('admin.home');
+    });
+
+
+    Route::resource('categories', CategoryController::class);
+
+    //    Route::get('/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('panel.categories.index');
+    //    Route::get('/categories/create', [\App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('panel.categories.create');
+    //    Route::post('/categories/store', [\App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('panel.categories.store');
+    //    // {category} = slug
+    //    Route::get('/categories/{category}/edit', [\App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('panel.categories.edit');
+    //    Route::patch('/categories/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('panel.categories.update');
+    //    Route::delete('/categories/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('panel.categories.destroy');
 });
-
-
-
-Route::get('/adminpanel/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'index']);
-Route::get('/adminpanel/categories/create', [\App\Http\Controllers\Admin\CategoryController::class, 'create']);
-Route::post('/adminpanel/categories/store', [\App\Http\Controllers\Admin\CategoryController::class, 'store']);
-// {category} = slug
-Route::get('/adminpanel/categories/{category}/edit', [\App\Http\Controllers\Admin\CategoryController::class, 'edit']);
-Route::patch('/adminpanel/categories/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'update']);
-Route::delete('/adminpanel/categories/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'destroy']);
-
