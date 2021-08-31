@@ -27,3 +27,8 @@ Route::get('adminpanel', function () {
 Route::get('/adminpanel/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'index']);
 Route::get('/adminpanel/categories/create', [\App\Http\Controllers\Admin\CategoryController::class, 'create']);
 Route::post('/adminpanel/categories/store', [\App\Http\Controllers\Admin\CategoryController::class, 'store']);
+// {category} = slug
+Route::get('/adminpanel/categories/{category}/edit', [\App\Http\Controllers\Admin\CategoryController::class, 'edit']);
+Route::patch('/adminpanel/categories/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'update']);
+Route::delete('/adminpanel/categories/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'destroy']);
+
