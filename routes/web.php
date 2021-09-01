@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('client.home');
-});
+Route::get('/',[\App\Http\Controllers\Client\HomeController::class, 'index']);
 
 
 
@@ -25,9 +23,7 @@ Route::prefix('/adminpanel')->group(function() {
         return view('admin.home');
     });
 
-
     Route::resource('categories', CategoryController::class);
-
     //    Route::get('/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('panel.categories.index');
     //    Route::get('/categories/create', [\App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('panel.categories.create');
     //    Route::post('/categories/store', [\App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('panel.categories.store');
