@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandRequest;
+use App\Http\Requests\BrandUpdateRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 
@@ -86,11 +87,13 @@ class BrandController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Brand $brand)
     {
-        //
+        return view('admin/brands/edit', [
+           'brand' => $brand
+        ]);
     }
 
     /**
@@ -98,11 +101,28 @@ class BrandController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Brand $brand)
+    public function update(BrandUpdateRequest $request, Brand $brand)
     {
-        //
+        $path = $brand->image;
+
+        // برای اینکه اگه کاربر تصویر جدید آپلود کرد آنگاه توی دیتابیس ذخیره کن
+        // hasFile('image') => بریز $path بود آنگاه بیا مسیر فایل جدید را درون 'request' داخل 'image' چک می کند که یک فایلی آپلود شده یا خیر یعنی چک می کند اگه فایلی بنام
+        if($request->hasFile('image'))
+        {
+            $path = $request->file('image')->storeAs(
+                'public/image', $request->file('image')->getClientOriginalName()
+            );
+        }
+
+        $brand->update([
+            'name' => $request->get('name'),
+            'image' => $path,
+        ]);
+
+        return redirect(route('brands.index'));
+
     }
 
     /**

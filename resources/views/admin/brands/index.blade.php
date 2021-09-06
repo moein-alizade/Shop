@@ -29,7 +29,10 @@
                             @foreach($brands as $brand)
                                 <tr>
                                     <td>{{$brand->id}}</td>
-                                    <td>{{$brand->title}}</td>
+                                    <td>{{$brand->name}}</td>
+                                    <td>
+                                        <img src="{{str_replace('public', '/storage', $brand->image)}}" width="100" alt="">
+                                    </td>
                                     <td>
                                         <a href="{{route('brands.edit', $brand)}}" class="btn btn-sm btn-primary">ویرایش</a>
                                     </td>
