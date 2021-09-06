@@ -129,10 +129,12 @@ class BrandController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+
+        return redirect(route('brands.index'));
     }
 }
