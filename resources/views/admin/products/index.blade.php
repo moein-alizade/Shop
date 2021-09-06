@@ -20,24 +20,34 @@
                             <tr>
                                 <th>#</th>
                                 <th>نام</th>
+                                <th>قیمت</th>
+                                <th>برند</th>
+                                <th>دسته بندی</th>
                                 <th>تصویر</th>
+                                <th>تاریخ ایجاد</th>
                                 <th>ویرایش</th>
                                 <th>حذف</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($brands as $brand)
+                            @foreach($products as $product)
                                 <tr>
-                                    <td>{{$brand->id}}</td>
-                                    <td>{{$brand->name}}</td>
+                                    <td>{{$product->id}}</td>
+                                    <td>{{$product->name}}</td>
+                                    <td>{{$product->cost}}</td>
+                                    <td>{{$product->brand->name}}</td>
+                                    <td>{{$product->category->title}}</td>
                                     <td>
-                                        <img src="{{str_replace('public', '/storage', $brand->image)}}" width="100" alt="">
+                                        <img src="{{str_replace('public', '/storage', $product->image)}}" width="100" alt="">
                                     </td>
                                     <td>
-                                        <a href="{{route('brands.edit', $brand)}}" class="btn btn-sm btn-primary">ویرایش</a>
+
                                     </td>
                                     <td>
-                                        <form action="{{route('brands.destroy', $brand)}}" method="post">
+                                        <a href="{{route('products.edit', $product)}}" class="btn btn-sm btn-primary">ویرایش</a>
+                                    </td>
+                                    <td>
+                                        <form action="{{route('products.destroy', $product)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             <input type="submit" class="btn btn-sm btn-danger" value="حذف">
@@ -50,6 +60,11 @@
                             <tr>
                                 <th>#</th>
                                 <th>نام</th>
+                                <th>قیمت</th>
+                                <th>برند</th>
+                                <th>دسته بندی</th>
+                                <th></th>
+                                <th>تاریخ ایجاد</th>
                             </tr>
                             </tfoot>
                         </table>

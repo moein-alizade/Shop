@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,4 +35,6 @@ Route::prefix('/adminpanel')->group(function() {
     //    Route::delete('/categories/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('panel.categories.destroy');
 
     Route::resource('brands', BrandController::class);
+
+    Route::resource('products', ProductController::class);
 });
