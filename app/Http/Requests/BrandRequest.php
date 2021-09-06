@@ -28,7 +28,7 @@ class BrandRequest extends FormRequest
         // min:50 => min volume(KB)
         return [
             'name' => ['required'],
-            'image' => ['required', 'mimes:png,jpg,jpeg,mpeg', 'max:1024', 'min:50']
+            'image' => ['required', 'mimes:png,jpg,jpeg,mpeg', 'max:1024', 'min:70']
         ];
     }
 }

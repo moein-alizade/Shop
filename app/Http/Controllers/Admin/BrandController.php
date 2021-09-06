@@ -55,7 +55,10 @@ class BrandController extends Controller
         // $path = $request->file('image')->storeAs('image', 'brand_image.jpg');
 
         // getClientOriginalName() => اسم واقعی فایل رو بر می گرداند
-        $path = $request->file('image')->storeAs('image', $request->file('image')->getClientOriginalName());
+        $path = $request->file('image')->storeAs(
+            'public/image',
+            $request->file('image')->getClientOriginalName()
+        );
 
 
 

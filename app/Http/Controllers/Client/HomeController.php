@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class HomeController extends Controller
         // to have access to categories in that view
         return view('client.home', [
             // فقط دسته بندی های اصلی که والد ندارند رو می فرستیم
-            'categories' => Category::query()->where('category_id', null)->get()
+            'categories' => Category::query()->where('category_id', null)->get(),
+            'brands' => Brand::all(),
         ]);
     }
 }
