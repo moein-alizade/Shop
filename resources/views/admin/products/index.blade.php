@@ -1,7 +1,6 @@
 @extends('admin.layout.master')
 
 
-
 @section('content')
 
     <div class="row">
@@ -9,7 +8,7 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h1 class="box-title">
-                        برندها
+                        محصولات
                     </h1>
                 </div>
 
