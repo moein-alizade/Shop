@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -23,22 +26,40 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('admin.products.create', [
+            'categories' => Category::all(),
+            'brands' => Brand::all(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+
+        $path = $request->file('image')->storeAs(
+            'public/products', $request->file('image')->getClientOriginalName()
+        );
+
+        Product::query()->create([
+            'name' => $request->get('name'),
+            'slug' => $request->get('slug'),
+            'brand_id' => $request->get('brand_id'),
+            'category_id' => $request->get('category_id'),
+            'cost' => $request->get('cost'),
+            'description' => $request->get('description'),
+            'image' => $path,
+        ]);
+
+        return redirect(route('products.index'));
     }
 
     /**
