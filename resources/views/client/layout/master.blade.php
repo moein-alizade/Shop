@@ -19,6 +19,9 @@
     <link rel="stylesheet" type="text/css" href="/client/css/stylesheet-rtl.css" />
     <link rel="stylesheet" type="text/css" href="/client/css/responsive-rtl.css" />
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans' type='text/css'>
+
+    {{-- برای اینکه هر صفحه ممکنه لینک های اختصاصی خودش را داشته باشد   --}}
+   @yield('links')
     <!-- CSS Part End-->
 </head>
 <body>
@@ -315,6 +318,8 @@
 <script type="text/javascript" src="/client/js/jquery.dcjqaccordion.min.js"></script>
 <script type="text/javascript" src="/client/js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/client/js/custom.js"></script>
+
+@yield('scripts')
 <!-- JS Part End-->
 </body>
 </html>

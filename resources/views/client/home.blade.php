@@ -890,9 +890,9 @@
                             <div class="owl-carousel latest_category_carousel">
                                 @foreach($category->getAllSubCategoryProducts() as $product)
                                     <div class="product-thumb">
-                                        <div class="image"><a href="product.html"><img src="{{str_replace('public', '/storage', $product->image)}}" alt="کرم مو آقایان" title="کرم مو آقایان" class="img-responsive" /></a></div>
+                                        <div class="image"><a href="{{route('client.products.show', $product)}}"><img src="{{str_replace('public', '/storage', $product->image)}}" alt="کرم مو آقایان" title="کرم مو آقایان" class="img-responsive" /></a></div>
                                         <div class="caption">
-                                            <h4><a href="product.html">{{$product->name}}</a></h4>
+                                            <h4><a href="{{route('client.products.show', $product)}}">{{$product->name}}</a></h4>
                                             <p class="price"> <span class="price-new"> {{$product->cost}} تومان </span> <span class="price-old">{{$product->cost}} تومان </span> <span class="saving">-27%</span> </p>
                                             <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
                                         </div>

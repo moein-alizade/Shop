@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Client\ProductController as ClientProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[\App\Http\Controllers\Client\HomeController::class, 'index']);
+Route::prefix('')->name('client.')->group(function() {
+    Route::get('/',[\App\Http\Controllers\Client\HomeController::class, 'index']);
+    Route::get('/products/{product}', [ClientProductController::class, 'show'])->name('products.show');
+});
 
 
 
