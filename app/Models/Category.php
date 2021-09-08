@@ -25,4 +25,17 @@ class Category extends Model
         return $this->hasMany(Category::class, 'category_id');
     }
 
+
+    // برای هر دسته بندی اصلی اگه اون دسته بندی فرزندی داشته باشد بیا محصولات همه فرزندان آن دسته بندی را برای ما برگردون
+    public function getAllSubCategoryProducts()
+    {
+        // pluck('') => یک فیلد خاصی از اون جدولی که می خواهیم برای ما بر می گرداند
+
+        // بدست آوردن آیدی فرزندان این دسته بندی خاص را برگردان
+        $childrenIds = $this->children()->pluck('id');
+
+        // دنبال محصولاتی بگرد که آیدی های فرزندان این دسته بندی را در خودش دارد
+        return Product::query()->whereIn('category_id', $childrenIds)->get();
+    }
+
 }
