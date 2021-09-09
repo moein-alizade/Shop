@@ -32,7 +32,11 @@
                 <div class="card">
                     <img class="card-img-top img-responsive" src="{{str_replace('public', '/storage', $picture->path)}}" alt="Card image cap">
                     <div class="card-body">
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <form action="{{route('products.pictures.destroy', ['product' => $product, 'picture' => $picture])}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" value="حذف" class="btn btn-sm btn-danger">
+                        </form>
                     </div>
                     <!-- /.card-body -->
                 </div>

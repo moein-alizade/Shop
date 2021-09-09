@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -41,6 +42,15 @@ class Product extends Model
             // type file
             'mime' => $request->file('image')->getClientMimeType()
         ]);
+    }
+
+    public function deletePicture(Picture $picture)
+    {
+        // 1) Remove file (تا وقتی رکورد از دیتابیس حذف شد دیگه فایل عکس توی پوشه تصاویر پابلیک مون وجود نداشته باشد)
+        Storage::delete($picture->path);
+
+        // 2) Remove record from database
+        $picture->delete();
     }
 
 }

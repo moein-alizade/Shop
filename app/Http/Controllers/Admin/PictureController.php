@@ -7,6 +7,7 @@ use App\Http\Requests\ProductPictureRequest;
 use App\Models\Picture;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {
@@ -86,10 +87,14 @@ class PictureController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Picture  $picture
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function destroy(Picture $picture)
+    public function destroy(Product $product, Picture $picture)
     {
-        //
+        // dd($product->toArray(), $picture->toArray());
+
+        $product->deletePicture($picture);
+
+        return redirect()->back();
     }
 }
