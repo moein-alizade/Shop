@@ -14,9 +14,6 @@ class ProductController extends Controller
     {
         return view('client.products.show', [
             'product' => $product,
-            // فقط دسته بندی های اصلی که والد ندارند رو می فرستیم
-            'categories' => Category::query()->where('category_id', null)->get(),
-            'brands' => Brand::all()
         ]);
     }
 }
