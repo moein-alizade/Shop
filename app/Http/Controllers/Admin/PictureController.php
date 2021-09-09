@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductPictureRequest;
 use App\Models\Picture;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -38,11 +39,13 @@ class PictureController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function store(Product $product, Request $request)
+    public function store(Product $product, ProductPictureRequest $request)
     {
-        //
+        $product->addPicture($request);
+
+        return redirect()->back();
     }
 
     /**
