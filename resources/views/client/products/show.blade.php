@@ -11,6 +11,27 @@
     <script type="text/javascript" src="/client/js/jquery.elevateZoom-3.0.8.min.js"></script>
     <script type="text/javascript" src="/client/js/swipebox/lib/ios-orientationchange-fix.js"></script>
     <script type="text/javascript" src="/client/js/swipebox/src/js/jquery.swipebox.min.js"></script>
+    <script type="text/javascript">
+        // Elevate Zoom for Product Page image
+        $("#zoom_01").elevateZoom({
+        gallery:'gallery_01',
+        cursor: 'pointer',
+        galleryActiveClass: 'active',
+        imageCrossfade: true,
+        zoomWindowFadeIn: 500,
+        zoomWindowFadeOut: 500,
+        zoomWindowPosition : 11,
+        lensFadeIn: 500,
+        lensFadeOut: 500,
+        loadingIcon: 'image/progress.gif'
+        });
+        //////pass the images to swipebox
+        $("#zoom_01").bind("click", function(e) {
+        var ez =   $('#zoom_01').data('elevateZoom');
+        $.swipebox(ez.getGalleryList());
+        return false;
+        });
+    </script>
 @endsection
 
 
@@ -33,7 +54,16 @@
                             <div class="col-sm-6">
                                 <div class="image"><img class="img-responsive" itemprop="image" id="zoom_01" src="{{str_replace('public', '/storage', $product->image)}}" title="{{$product->name}}" alt="{{$product->name}}" data-zoom-image="{{str_replace('public', '/storage', $product->image)}}" /> </div>
                                 <div class="center-block text-center"><span class="zoom-gallery"><i class="fa fa-search"></i> برای مشاهده گالری روی تصویر کلیک کنید</span></div>
-                                <div class="image-additional" id="gallery_01"> <a class="thumbnail" href="#" data-zoom-image="image/product/macbook_air_1-500x500.jpg" data-image="image/product/macbook_air_1-350x350.jpg" title="لپ تاپ ایلین ور"> <img src="image/product/macbook_air_1-66x66.jpg" title="لپ تاپ ایلین ور" alt = "لپ تاپ ایلین ور"/></a> <a class="thumbnail" href="#" data-zoom-image="image/product/macbook_air_4-500x500.jpg" data-image="image/product/macbook_air_4-350x350.jpg" title="لپ تاپ ایلین ور"><img src="image/product/macbook_air_4-66x66.jpg" title="لپ تاپ ایلین ور" alt="لپ تاپ ایلین ور" /></a> <a class="thumbnail" href="#" data-zoom-image="image/product/macbook_air_2-500x500.jpg" data-image="image/product/macbook_air_2-350x350.jpg" title="لپ تاپ ایلین ور"><img src="image/product/macbook_air_2-66x66.jpg" title="لپ تاپ ایلین ور" alt="لپ تاپ ایلین ور" /></a> <a class="thumbnail" href="#" data-zoom-image="image/product/macbook_air_3-500x500.jpg" data-image="image/product/macbook_air_3-350x350.jpg" title="لپ تاپ ایلین ور"><img src="image/product/macbook_air_3-66x66.jpg" title="لپ تاپ ایلین ور" alt="لپ تاپ ایلین ور" /></a> </div>
+                                <div class="image-additional" id="gallery_01">
+                                    <a class="thumbnail" href="#" data-zoom-image="{{str_replace('public', '/storage', $product->image)}}" data-image="{{str_replace('public', '/storage', $product->image)}}" title="لپ تاپ ایلین ور">
+                                        <img src="{{str_replace('public', '/storage', $product->image)}}" title="لپ تاپ ایلین ور" alt = "لپ تاپ ایلین ور"/>
+                                    </a>
+                                    @foreach($product->pictures as $picture)
+                                        <a class="thumbnail" href="#" data-zoom-image="{{str_replace('public', '/storage', $picture->path)}}" data-image="{{str_replace('public', '/storage', $picture->path)}}" title="لپ تاپ ایلین ور">
+                                            <img src="{{str_replace('public', '/storage', $picture->path)}}" title="لپ تاپ ایلین ور" alt = "لپ تاپ ایلین ور"/>
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <ul class="list-unstyled description">
