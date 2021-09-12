@@ -23,6 +23,7 @@
                                 <th>برند</th>
                                 <th>دسته بندی</th>
                                 <th>تصویر</th>
+                                <th>تخفیف</th>
                                 <th>گالری</th>
                                 <th>تاریخ ایجاد</th>
                                 <th>ویرایش</th>
@@ -39,6 +40,9 @@
                                     <td>{{$product->category->title}}</td>
                                     <td>
                                         <img src="{{str_replace('public', '/storage', $product->image)}}" width="100" alt="">
+                                    </td>
+                                    <td>
+                                        <a href="{{route('products.discounts.create', $product)}}" class="btn btn-sm btn-success">ایجاد تخفیف</a>
                                     </td>
                                     <td>
                                         <a href="{{route('products.pictures.index', $product)}}" class="btn btn-sm btn-warning">گالری</a>

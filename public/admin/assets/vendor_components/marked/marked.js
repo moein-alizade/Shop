@@ -325,7 +325,7 @@ Lexer.prototype.token = function(src, top, bq) {
 
         // Determine whether item is loose or not.
         // Use: /(^|\n)(?! )[^\n]+\n\n(?!\s*$)/
-        // for discount behavior.
+        // for discounts behavior.
         loose = next || /\n\n(?!\s*$)/.test(item);
         if (i !== l - 1) {
           next = item.charAt(item.length - 1) === '\n';
@@ -1094,7 +1094,7 @@ function escape(html, encode) {
 }
 
 function unescape(html) {
-	// explicitly match decimal, hex, and named HTML entities 
+	// explicitly match decimal, hex, and named HTML entities
   return html.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/g, function(_, n) {
     n = n.toLowerCase();
     if (n === 'colon') return ':';
