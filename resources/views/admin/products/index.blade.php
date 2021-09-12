@@ -42,7 +42,17 @@
                                         <img src="{{str_replace('public', '/storage', $product->image)}}" width="100" alt="">
                                     </td>
                                     <td>
-                                        <a href="{{route('products.discounts.create', $product)}}" class="btn btn-sm btn-success">ایجاد تخفیف</a>
+                                        {{--  اگه تخفیفی وجود نداشت  --}}
+                                        @if(!$product->discount()->exists())
+                                            <a href="{{route('products.discounts.create', $product)}}" class="btn btn-sm btn-success">ایجاد تخفیف</a>
+                                        @else
+                                            <p>{{$product->discount->value}}</p>
+                                            <form action="{{route('products.discounts.destroy', ['product' => $product, 'discount' => $product->discount])}}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="submit" class="btn btn-sm btn-danger" value="حذف">
+                                            </form>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{route('products.pictures.index', $product)}}" class="btn btn-sm btn-warning">گالری</a>

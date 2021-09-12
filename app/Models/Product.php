@@ -80,4 +80,10 @@ class Product extends Model
 
     }
 
+
+    public function deleteDiscount()
+    {
+        $this->discount()->delete();
+    }
+
 }

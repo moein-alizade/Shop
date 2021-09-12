@@ -84,10 +84,12 @@ class DiscountController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Discount  $discount
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function destroy(Discount $discount)
+    public function destroy(Product $product, Discount $discount)
     {
-        //
+        $product->deleteDiscount();
+
+        return redirect(route('products.index'));
     }
 }
