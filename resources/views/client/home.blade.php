@@ -893,7 +893,13 @@
                                         <div class="image"><a href="{{route('client.products.show', $product)}}"><img src="{{str_replace('public', '/storage', $product->image)}}" alt="کرم مو آقایان" title="کرم مو آقایان" class="img-responsive" /></a></div>
                                         <div class="caption">
                                             <h4><a href="{{route('client.products.show', $product)}}">{{$product->name}}</a></h4>
-                                            <p class="price"> <span class="price-new"> {{$product->cost}} تومان </span> <span class="price-old">{{$product->cost}} تومان </span> <span class="saving">-27%</span> </p>
+                                            {{--  -{{optional($product->discount)->value}}% => این تابع برای این استفاده کردیم که اگه تخفیف هم نداشتیم بازم به ما خطا نشان ندهد   --}}
+                                            <p class="price"> <span class="price-new"> {{$product->costWithDiscount()}} تومان </span>
+                                            @if($product->discount()->exists())
+                                                <span class="price-old">{{$product->cost}} تومان </span>
+                                                <span class="saving">-{{$product->discount->value}}%</span>
+                                            @endif
+                                            </p>
                                             <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
                                         </div>
                                         <div class="button-group">

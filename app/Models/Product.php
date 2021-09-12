@@ -86,4 +86,18 @@ class Product extends Model
         $this->discount()->delete();
     }
 
+
+    public function costWithDiscount()
+    {
+        // آیا این محصول تخفیف دارد یا نه
+        if (!$this->discount()->exists())
+        {
+            // return real cost
+            return $this->cost;
+        }
+
+        // return costWithDiscount ( real cost - (real cost * discount percent) )
+        return $this->cost - $this->cost * $this->discount->value / 100;
+    }
+
 }
