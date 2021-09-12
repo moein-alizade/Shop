@@ -74,10 +74,10 @@
                                 </ul>
                                 <ul class="price-box">
                                     <li class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                        @if($product->discount()->exists())
+                                        @if($product->has_discount)
                                             <span class="price-old">{{$product->cost}} تومان</span>
                                         @endif
-                                        <span itemprop="price">{{$product->costWithDiscount()}} تومان<span itemprop="availability" content="موجود"></span></span>
+                                        <span itemprop="price">{{$product->cost_with_discount}} تومان<span itemprop="availability" content="موجود"></span></span>
                                     </li>
                                     <li></li>
                                     <li>بدون مالیات : 9 میلیون تومان</li>

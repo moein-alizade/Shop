@@ -87,9 +87,10 @@ class Product extends Model
     }
 
 
-    public function costWithDiscount()
+    // get + function_name + Attribute=> تعریف تابع بصورت فیلد مجازی
+    public function getCostWithDiscountAttribute()
     {
-        // آیا این محصول تخفیف دارد یا نه
+        //  آیا این محصول تخفیف دارد یا نه
         if (!$this->discount()->exists())
         {
             // return real cost
@@ -98,6 +99,23 @@ class Product extends Model
 
         // return costWithDiscount ( real cost - (real cost * discount percent) )
         return $this->cost - $this->cost * $this->discount->value / 100;
+    }
+
+
+    public function getHasDiscountAttribute()
+    {
+        return $this->discount()->exists();
+    }
+
+
+    public function getDiscountValueAttribute()
+    {
+        if($this->has_discount)
+        {
+            return $this->discount->value;
+        }
+
+        return null;
     }
 
 }

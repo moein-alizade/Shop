@@ -43,10 +43,10 @@
                                     </td>
                                     <td>
                                         {{--  اگه تخفیفی وجود نداشت  --}}
-                                        @if(!$product->discount()->exists())
+                                        @if(!$product->has_discount)
                                             <a href="{{route('products.discounts.create', $product)}}" class="btn btn-sm btn-success">ایجاد تخفیف</a>
                                         @else
-                                            <p>{{$product->discount->value}}</p>
+                                            <p>{{$product->discount_value}}</p>
                                             <form action="{{route('products.discounts.destroy', ['product' => $product, 'discount' => $product->discount])}}" method="post">
                                                 @csrf
                                                 @method('delete')

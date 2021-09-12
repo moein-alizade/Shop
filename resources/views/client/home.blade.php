@@ -894,10 +894,10 @@
                                         <div class="caption">
                                             <h4><a href="{{route('client.products.show', $product)}}">{{$product->name}}</a></h4>
                                             {{--  -{{optional($product->discount)->value}}% => این تابع برای این استفاده کردیم که اگه تخفیف هم نداشتیم بازم به ما خطا نشان ندهد   --}}
-                                            <p class="price"> <span class="price-new"> {{$product->costWithDiscount()}} تومان </span>
-                                            @if($product->discount()->exists())
+                                            <p class="price"> <span class="price-new"> {{$product->cost_with_discount}} تومان </span>
+                                            @if($product->has_discount)
                                                 <span class="price-old">{{$product->cost}} تومان </span>
-                                                <span class="saving">-{{$product->discount->value}}%</span>
+                                                <span class="saving">-{{$product->discount_value}}%</span>
                                             @endif
                                             </p>
                                             <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
