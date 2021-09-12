@@ -59,4 +59,25 @@ class Product extends Model
         $picture->delete();
     }
 
+
+    public function addDiscount(Request $request)
+    {
+        // آیا برای این محصول قبلا تخفیفی ثبت شده یا نه
+        if(!$this->discount()->exists())
+        {
+            $this->discount()->create([
+                'value' => $request->get('value')
+            ]);
+        }
+        else
+        {
+            // discount = attribute -> یعنی نتیجه اش یک رکورد از دیتابیس است
+            // discount() = function -> نتیجه اش یک کوئری هست و بصورت رکورد نیست
+            $this->discount->update([
+               'value' => $request->get('value')
+            ]);
+        }
+
+    }
+
 }

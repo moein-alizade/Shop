@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DiscountRequest;
 use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -35,11 +36,14 @@ class DiscountController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Product $product, DiscountRequest $request)
     {
-        //
+        $product->addDiscount($request);
+
+
+        return redirect(route('products.index'));
     }
 
     /**
