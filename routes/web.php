@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\PictureController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,4 +48,6 @@ Route::prefix('/adminpanel')->group(function() {
     Route::resource('products.pictures', PictureController::class);
 
     Route::resource('products.discounts', DiscountController::class);
+
+    Route::resource('roles', RoleController::class);
 });
