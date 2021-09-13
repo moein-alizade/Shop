@@ -21,19 +21,19 @@ class PermissionSeeder extends Seeder
         Permission::query()->insert([
             [
                 'title' => 'read-category',
-                'lable' => 'مشاهده دسته بندی'
+                'label' => 'مشاهده دسته بندی'
             ],
             [
                 'title' => 'create-category',
-                'lable' => 'ایجاد دسته بندی'
+                'label' => 'ایجاد دسته بندی'
             ],
             [
                 'title' => 'update-category',
-                'lable' => 'ویرایش دسته بندی'
+                'label' => 'ویرایش دسته بندی'
             ],
             [
                 'title' => 'delete-category',
-                'lable' => 'حذف دسته بندی'
+                'label' => 'حذف دسته بندی'
             ],
         ]);
 
@@ -45,19 +45,19 @@ class PermissionSeeder extends Seeder
         Permission::query()->insert([
             [
                 'title' => 'read-brand',
-                'lable' => 'مشاهده برند'
+                'label' => 'مشاهده برند'
             ],
             [
                 'title' => 'create-brand',
-                'lable' => 'ایجاد برند'
+                'label' => 'ایجاد برند'
             ],
             [
                 'title' => 'update-brand',
-                'lable' => 'ویرایش برند'
+                'label' => 'ویرایش برند'
             ],
             [
                 'title' => 'delete-brand',
-                'lable' => 'حذف برند'
+                'label' => 'حذف برند'
             ],
         ]);
 
@@ -69,19 +69,19 @@ class PermissionSeeder extends Seeder
         Permission::query()->insert([
             [
                 'title' => 'read-product',
-                'lable' => 'مشاهده محصول'
+                'label' => 'مشاهده محصول'
             ],
             [
                 'title' => 'create-product',
-                'lable' => 'ایجاد محصول'
+                'label' => 'ایجاد محصول'
             ],
             [
                 'title' => 'update-product',
-                'lable' => 'ویرایش محصول'
+                'label' => 'ویرایش محصول'
             ],
             [
                 'title' => 'delete-product',
-                'lable' => 'حذف محصول'
+                'label' => 'حذف محصول'
             ],
         ]);
 
@@ -93,19 +93,19 @@ class PermissionSeeder extends Seeder
         Permission::query()->insert([
             [
                 'title' => 'read-discounts',
-                'lable' => 'مشاهده تخفیف'
+                'label' => 'مشاهده تخفیف'
             ],
             [
                 'title' => 'create-discounts',
-                'lable' => 'ایجاد تخفیف'
+                'label' => 'ایجاد تخفیف'
             ],
             [
                 'title' => 'update-discounts',
-                'lable' => 'ویرایش تخفیف'
+                'label' => 'ویرایش تخفیف'
             ],
             [
                 'title' => 'delete-discounts',
-                'lable' => 'حذف تخفیف'
+                'label' => 'حذف تخفیف'
             ],
         ]);
 
@@ -118,19 +118,19 @@ class PermissionSeeder extends Seeder
         Permission::query()->insert([
             [
                 'title' => 'read-picture',
-                'lable' => 'مشاهده تصویر'
+                'label' => 'مشاهده تصویر'
             ],
             [
                 'title' => 'create-picture',
-                'lable' => 'ایجاد تصویر'
+                'label' => 'ایجاد تصویر'
             ],
             [
                 'title' => 'update-picture',
-                'lable' => 'ویرایش تصویر'
+                'label' => 'ویرایش تصویر'
             ],
             [
                 'title' => 'delete-picture',
-                'lable' => 'حذف تصویر'
+                'label' => 'حذف تصویر'
             ],
         ]);
 
@@ -143,19 +143,19 @@ class PermissionSeeder extends Seeder
         Permission::query()->insert([
             [
                 'title' => 'read-offer',
-                'lable' => 'مشاهده کد تخفیف'
+                'label' => 'مشاهده کد تخفیف'
             ],
             [
                 'title' => 'create-offer',
-                'lable' => 'ایجاد کد تخفیف'
+                'label' => 'ایجاد کد تخفیف'
             ],
             [
                 'title' => 'update-offer',
-                'lable' => 'ویرایش کد تخفیف'
+                'label' => 'ویرایش کد تخفیف'
             ],
             [
                 'title' => 'delete-offer',
-                'lable' => 'حذف کد تخفیف'
+                'label' => 'حذف کد تخفیف'
             ],
         ]);
 
@@ -168,19 +168,19 @@ class PermissionSeeder extends Seeder
         Permission::query()->insert([
             [
                 'title' => 'read-role',
-                'lable' => 'مشاهده نقش'
+                'label' => 'مشاهده نقش'
             ],
             [
                 'title' => 'create-role',
-                'lable' => 'ایجاد نقش'
+                'label' => 'ایجاد نقش'
             ],
             [
                 'title' => 'update-role',
-                'lable' => 'ویرایش نقش'
+                'label' => 'ویرایش نقش'
             ],
             [
                 'title' => 'delete-role',
-                'lable' => 'حذف نقش'
+                'label' => 'حذف نقش'
             ],
         ]);
 
