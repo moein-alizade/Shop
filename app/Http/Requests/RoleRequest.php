@@ -25,7 +25,8 @@ class RoleRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'permissions' => ['required', 'array'],
+            'permissions' => ['array'],
+            'permissions.*' => ['exists:permissions,id'],
         ];
     }
 }

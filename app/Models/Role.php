@@ -14,6 +14,21 @@ class Role extends Model
     // رابطه ی نقش با دسترسی ها
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class);
+        return $this->belongsToMany(Permission::class, 'permission_role');
+    }
+
+
+    /**
+     * @param Permission $permission
+     * @return bool
+     */
+
+    public function hasPermission($permission_name)
+    {
+        $permission = Permission::where('title', '=', $permission_name)->first();
+
+        return $this->permissions()
+            ->where('id', $permission->id)
+            ->exists();
     }
 }

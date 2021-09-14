@@ -67,11 +67,14 @@ class RoleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Role $role)
     {
-        //
+        return view('admin.roles.edit', [
+           'role' => $role,
+            'permissions' => Permission::all()
+        ]);
     }
 
     /**
@@ -79,21 +82,33 @@ class RoleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
-        //
+        $role->update([
+            'title' => $request->get('title')
+        ]);
+
+        $role->permissions()->sync($request->get('permissions'));
+
+        return redirect(route('roles.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function destroy(Role $role)
     {
-        //
+        // گرفتن دسترسی های این نقش
+        $role->permissions()->detach();
+
+        // حذف نقش
+        $role->delete();
+
+        return redirect(route('roles.index'));
     }
 }
