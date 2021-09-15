@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
+use App\Http\Controllers\Client\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('')->name('client.')->group(function() {
     Route::get('/',[\App\Http\Controllers\Client\HomeController::class, 'index']);
     Route::get('/products/{product}', [ClientProductController::class, 'show'])->name('products.show');
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
 });
 
 
