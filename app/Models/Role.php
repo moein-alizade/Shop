@@ -31,4 +31,12 @@ class Role extends Model
             ->where('id', $permission->id)
             ->exists();
     }
+
+
+    // نقش ها را بر اساس عنوانشان برامون پیدا می کند
+    public static function findByTitle($title)
+    {
+        return self::query()->whereTitle($title)->firstOrFail();
+    }
+
 }
