@@ -11,6 +11,9 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // check information data's user is logged in website
+        // dd(auth()->user());
+
         // send $categories to view and
         // to have access to categories in that view
         return view('client.home', [

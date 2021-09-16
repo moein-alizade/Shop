@@ -23,12 +23,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('')->name('client.')->group(function() {
-    Route::get('/',[\App\Http\Controllers\Client\HomeController::class, 'index']);
+    Route::get('/',[\App\Http\Controllers\Client\HomeController::class, 'index'])->name('index');
     Route::get('/products/{product}', [ClientProductController::class, 'show'])->name('products.show');
 
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
     Route::post('/register/sendmail', [RegisterController::class, 'sendMail'])->name('register.sendmail');
-    Route::get('/register/otp', [RegisterController::class, 'otp'])->name('register.otp');
+    Route::get('/register/otp/{user}', [RegisterController::class, 'otp'])->name('register.otp');
+    Route::post('/register/verifyOtp/{user}', [RegisterController::class, 'verifyOtp'])->name('register.verifyOtp');
 });
 
 
