@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\RegisterController;
+use App\Http\Middleware\CheckPermission;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +39,10 @@ Route::prefix('')->name('client.')->group(function() {
 
 
 
-Route::prefix('/adminpanel')->middleware(\App\Http\Middleware\CheckPermission::class . ':view-dashboard')->group(function() {
+Route::prefix('/adminpanel')->middleware([
+    CheckPermission::class . ':view-dashboard',
+    'auth'
+])->group(function() {
     Route::get('/', function () {
         return view('admin.home');
     });
