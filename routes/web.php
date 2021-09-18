@@ -38,7 +38,7 @@ Route::prefix('')->name('client.')->group(function() {
 
 
 
-Route::prefix('/adminpanel')->group(function() {
+Route::prefix('/adminpanel')->middleware(\App\Http\Middleware\CheckPermission::class . ':view-dashboard')->group(function() {
     Route::get('/', function () {
         return view('admin.home');
     });
