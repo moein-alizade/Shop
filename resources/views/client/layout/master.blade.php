@@ -95,10 +95,18 @@
                         </div>
                     </div>
                     <div id="top-links" class="nav pull-right flip">
-                        <ul>
-                            <li><a href="login.html">ورود</a></li>
-                            <li><a href="register.html">ثبت نام</a></li>
-                        </ul>
+                        {{--  @auth() => چک می کند که کاربر لاگین کرده یا خیر  --}}
+                        @auth()
+                            <form action="{{route('client.logout')}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" name="logout" class="btn btn-sm btn-danger" value="خروج">
+                            </form>
+                        @else
+                            <ul>
+                                <li><a href="{{route('client.register')}}">ورود/ثبت نام</a></li>
+                            </ul>
+                        @endauth
                     </div>
                 </div>
             </div>

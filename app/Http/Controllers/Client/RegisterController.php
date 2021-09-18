@@ -26,24 +26,8 @@ class RegisterController extends Controller
         ]);
 
 
-        // OTP
-        // random_int(min, max)
-        $otp = random_int(11111, 99999);
+        $user = User::generateOtp($request);
 
-
-        // Create user and store in db
-        $user = User::query()->create([
-            'email' => $request->get('email'),
-            'role_id' => Role::findByTitle('user')->id,
-            'password' => bcrypt($otp)
-        ]);
-
-
-        // send otp email to user
-        // Email call
-        // to() = مشخص کردن ایمیل مقصد
-        // send('مشخص کردن کلاس موردنظر از ایمیلی که ساختیم برای فرستادن') = ایجاد ایمیل در آن لحظه ی خاص
-        Mail::to($user->email)->send(new OtpMail($otp));
 
         return redirect(route('client.register.otp', $user));
     }
@@ -73,4 +57,12 @@ class RegisterController extends Controller
         return redirect(route('client.index'));
     }
 
+
+    public function logout()
+    {
+        auth()->logout();
+
+
+        return redirect(route('client.index'));
+    }
 }
