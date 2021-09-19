@@ -79,7 +79,7 @@
                     <!-- User Account-->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="../images/avatar/7.jpg" class="user-image rounded-circle" alt="User Image">
+                            <img src="/images/avatar/7.jpg" class="user-image rounded-circle" alt="User Image">
                         </a>
                         <ul class="dropdown-menu animated flipInY">
                             <!-- User image -->
@@ -408,7 +408,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="user-profile treeview">
                     <a href="index.html">
-                        <img src="../images/avatar/7.jpg" alt="user">
+                        <img src="/public/admin/images/avatar/7.jpg" alt="user">
                         <span>
 				<span class="d-block font-weight-600 font-size-16">Samuel Brus</span>
 				<span class="email-id">samuel@gmail.com</span>

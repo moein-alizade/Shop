@@ -19,6 +19,7 @@ class Category extends Model
     }
 
 
+
     // one to n (find children a category or subCategory)
     public function children()
     {
@@ -34,8 +35,20 @@ class Category extends Model
         // بدست آوردن آیدی فرزندان این دسته بندی خاص را برگردان
         $childrenIds = $this->children()->pluck('id');
 
+
         // دنبال محصولاتی بگرد که آیدی های فرزندان این دسته بندی را در خودش دارد
-        return Product::query()->whereIn('category_id', $childrenIds)->get();
+        // whereIn('category_id', $childrenIds) => محصولات مربوط به فرزندان دسته بندی رو بگرد و در صورت وجود آنها را نمایش بده
+        // orWhere('category_id', $this->id) =>  محصولات خود دسته بندی را بگرد و در صورت وجود آنها را نمایش بده
+        return Product::query()
+            ->whereIn('category_id', $childrenIds)
+            ->orWhere('category_id', $this->id)
+            ->get();
+    }
+
+
+    public function getHasChildrenAttribute()
+    {
+        return $this->children()->count() > 0;
     }
 
 }
