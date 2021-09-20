@@ -11,7 +11,8 @@
     <title>Superieur Admin - Dashboard</title>
 
     <!-- Bootstrap 4.0-->
-    <link rel="stylesheet" href="/admin/assets/vendor_components/bootstrap/dist/css/bootstrap.css">
+{{--    <link rel="stylesheet" href="/admin/assets/vendor_components/bootstrap/dist/css/bootstrap.css">--}}
+    <link rel="stylesheet" href="{{ asset('/admin/assets/vendor_components/bootstrap/dist/css/bootstrap.css') }}">
 
     <!-- Bootstrap extend-->
     <link rel="stylesheet" href="/admin/css/bootstrap-extend.css">
@@ -87,8 +88,8 @@
                                 <div class="flexbox align-self-center">
                                     <img src="../images/avatar/7.jpg" class="float-left rounded-circle" alt="User Image">
                                     <h4 class="user-name align-self-center">
-                                        <span>Samuel Brus</span>
-                                        <small>samuel@gmail.com</small>
+                                        <span>{{ auth()->user()->name }}</span>
+                                        <small>{{auth()->user()->email}}</small>
                                     </h4>
                                 </div>
                             </li>
@@ -408,11 +409,12 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="user-profile treeview">
                     <a href="index.html">
-                        <img src="/public/admin/images/avatar/7.jpg" alt="user">
+{{--                        <img src="/admin/images/avatar/7.jpg" alt="user">--}}
+                        <img src="{{ asset('/admin/images/avatar/7.jpg') }}" alt="user">
                         <span>
-				<span class="d-block font-weight-600 font-size-16">Samuel Brus</span>
-				<span class="email-id">samuel@gmail.com</span>
-			  </span>
+                            <span class="d-block font-weight-600 font-size-16">{{ auth()->user()->name }}</span>
+                            <span class="email-id">{{ auth()->user()->email }}</span>
+			             </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>

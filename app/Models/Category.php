@@ -15,7 +15,7 @@ class Category extends Model
     // one to one (show parent a category)
     public function parent()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id')->withDefault(['title' => '-']);
     }
 
 
