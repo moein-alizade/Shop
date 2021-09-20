@@ -51,4 +51,10 @@ class Category extends Model
         return $this->children()->count() > 0;
     }
 
+
+    public function propertyGroups()
+    {
+        return $this->belongsToMany(PropertyGroup::class);
+    }
+
 }
