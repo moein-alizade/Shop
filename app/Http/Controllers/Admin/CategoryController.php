@@ -95,6 +95,11 @@ class CategoryController extends Controller
             'title' => $request->get('title')
         ]);
 
+
+        // sync() => 'attached', 'detached', 'updated'
+        $category->propertyGroups()->sync($request->get('properties'));
+
+
         return redirect(route('categories.index'));
     }
 
@@ -106,6 +111,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category->propertyGroups()->detach();
+
         $category->delete();
 
        return redirect('/adminpanel/categories');

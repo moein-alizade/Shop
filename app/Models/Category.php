@@ -57,4 +57,13 @@ class Category extends Model
         return $this->belongsToMany(PropertyGroup::class);
     }
 
+
+    public function hasPropertyGroup(PropertyGroup $propertyGroup)
+    {
+        // آیا این property وجود دارد یا نه
+        return $this->propertyGroups()
+            ->where('property_group_id', $propertyGroup->id)
+            ->exists();
+    }
+
 }

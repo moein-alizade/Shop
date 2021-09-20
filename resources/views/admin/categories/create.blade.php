@@ -30,7 +30,7 @@
 
 
                         <div class="form-group">
-                            <lable>انتخاب دسترسی ها</lable>
+                            <lable>انتخاب گروه ویژگی ها</lable>
                             <div class="row">
                                 @foreach($properties as $property)
                                     <label class="col-sm-2">
