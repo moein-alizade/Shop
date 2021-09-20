@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\PictureController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductPropertyController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\PropertyGroupController;
 use App\Http\Controllers\Admin\RoleController;
@@ -65,6 +66,10 @@ Route::prefix('/adminpanel')->middleware([
     Route::resource('products.pictures', PictureController::class);
 
     Route::resource('products.discounts', DiscountController::class);
+
+
+    Route::get('/products/{product}/properties', [ProductPropertyController::class, 'index'])->name('products.properties.index');
+
 
     Route::resource('propertyGroups', PropertyGroupController::class);
 

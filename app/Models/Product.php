@@ -118,4 +118,13 @@ class Product extends Model
         return null;
     }
 
+
+    public function properties()
+    {
+        // withPivot(['']) => را می نویسیم (property_id & product_id) لیست فیلد هایی که قرار است به جدول اضافه شوند علاوه بر آیدی دو تا جدول
+        return $this->belongsToMany(Property::class)
+            ->withPivot(['value'])
+            ->withTimestamps();
+    }
+
 }

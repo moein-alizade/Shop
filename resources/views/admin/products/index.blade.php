@@ -57,6 +57,9 @@
                                     <td>
                                         <a href="{{route('products.pictures.index', $product)}}" class="btn btn-sm btn-warning">گالری</a>
                                     </td>
+                                    <td>
+                                        <a href="{{route('products.properties.index', $product)}}" class="btn btn-sm btn-warning">ویژگی ها</a>
+                                    </td>
                                     <td></td>
                                     <td>
                                         <a href="{{route('products.edit', $product)}}" class="btn btn-sm btn-primary">ویرایش</a>
