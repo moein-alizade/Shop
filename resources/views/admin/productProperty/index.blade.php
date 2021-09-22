@@ -2,51 +2,41 @@
 
 @section('content')
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">ویژگی های محصول {{$product->name}}</h3>
+                    <a class="btn btn-success btn-sm" href="{{route('products.properties.create', $product)}}">تغییر مقادیر ویژگی ها</a>
                 </div>
 
-
-                @php
-                    $propertyGroups = $product->category->propertyGroups
-                @endphp
-
-
-
                 <div class="box-body">
-                    {{-- enctype="multipart/form-data" => for upload file and send to server  --}}
-                    <form action="{{route('products.properties.store', $product)}}" method="post" enctype="multipart/form-data">
-                        @csrf
-
-                        @foreach($propertyGroups as $group)
-                            <h3>{{$group->title}}</h3>
-                            <div class="row">
-                                @foreach($group->properties as $property)
-                                    <div class="form-group col-sm-6">
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <lable for="name">{{$property->title}}</lable>
-                                            </div>
-                                            <div class="col-sm-10">
-                                                {{-- properties[{{ آیدی ویژگی مدنظر }}][name or key] => آرایه دو بعدی --}}
-                                                {{-- key = اسم فیلد مجزای ما --}}
-                                                {{-- در این حالت ما یک فیلد مجزا داریم، یک فیلدی که جدا از رابطه چند به جند باید اونم مقداردهی شود --}}
-                                                <input type="text" class="form-control" name="properties[{{ $property->id }}][value]" value="{{ $property->getValueForProduct($product) }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endforeach
-
-
-
-                        <div class="form-group">
-                            <input type="submit" name="submit" id="submit" value="ثبت" class="btn btn-primary">
-                        </div>
-                    </form>
+                    <div class="table-responsive">
+                        <table id="example5" class="table table-bordered table-striped" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>نام</th>
+                                <th>مقدار</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($product->properties as $property)
+                                <tr>
+                                    <td>{{$property->id}}</td>
+                                    <td>{{$property->title}}</td>
+                                    {{-- خواندن مقادیری از جدول واسطی که میان دو تا جدول وجود دارد  --}}
+                                    <td>{{$property->pivot->value}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>نام</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
 

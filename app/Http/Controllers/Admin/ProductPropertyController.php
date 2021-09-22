@@ -17,6 +17,15 @@ class ProductPropertyController extends Controller
     }
 
 
+    public function create(Product $product)
+    {
+        return view('admin.productProperty.create', [
+            'product' => $product
+        ]);
+    }
+
+
+
     public function store(Request $request, Product $product)
     {
         // sync() => و همه ی این موارد از همین صفحه استفاده بکنیم و صفحه دیگه استفاده نمی کنیم store and edit دلیل استفاده ازش این هست که قراره ما برای
