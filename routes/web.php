@@ -70,6 +70,8 @@ Route::prefix('/adminpanel')->middleware([
 
     Route::get('/products/{product}/properties', [ProductPropertyController::class, 'index'])->name('products.properties.index');
 
+    Route::post('/products/{product}/properties', [ProductPropertyController::class, 'store'])->name('products.properties.store');
+
 
     Route::resource('propertyGroups', PropertyGroupController::class);
 

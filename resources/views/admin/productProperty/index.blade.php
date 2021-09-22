@@ -17,26 +17,29 @@
 
                 <div class="box-body">
                     {{-- enctype="multipart/form-data" => for upload file and send to server  --}}
-                    <form action="{{route('brands.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('products.properties.store', $product)}}" method="post" enctype="multipart/form-data">
                         @csrf
 
-                            @foreach($propertyGroups as $group)
-                                <h3>{{$group->title}}</h3>
-                                <div class="row">
-                                    @foreach($group->properties as $property)
-                                        <div class="form-group col-sm-6">
-                                            <div class="row">
-                                                <div class="col-sm-2">
-                                                    <lable for="name">{{$property->title}}</lable>
-                                                </div>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" name="name" id="name">
-                                                </div>
+                        @foreach($propertyGroups as $group)
+                            <h3>{{$group->title}}</h3>
+                            <div class="row">
+                                @foreach($group->properties as $property)
+                                    <div class="form-group col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <lable for="name">{{$property->title}}</lable>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                {{-- properties[{{ آیدی ویژگی مدنظر }}][name or key] => آرایه دو بعدی --}}
+                                                {{-- key = اسم فیلد مجزای ما --}}
+                                                {{-- در این حالت ما یک فیلد مجزا داریم، یک فیلدی که جدا از رابطه چند به جند باید اونم مقداردهی شود --}}
+                                                <input type="text" class="form-control" name="properties[{{ $property->id }}][value]" value="{{ $property->getValueForProduct($product) }}">
                                             </div>
                                         </div>
-                                    @endforeach
-                                </div>
-                            @endforeach
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
 
 
 

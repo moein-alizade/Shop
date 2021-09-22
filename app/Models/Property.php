@@ -26,4 +26,18 @@ class Property extends Model
             ->withPivot(['value'])
             ->withTimestamps();
     }
+
+
+    public function getValueForProduct(Product $product)
+    {
+        $productPropertyQuery = $this->products()->where('product_id', $product->id);
+
+        if(!$productPropertyQuery->exists())
+        {
+            return null;
+        }
+
+        // pivot->value => یا به نوعی برای فراخوانی جدول میانی که میان دو تا جدول وجود دارد و رابطه شون چند به چند هست pivot برای بازگردان مقدار جدول
+        return $productPropertyQuery->first()->pivot->value;
+    }
 }

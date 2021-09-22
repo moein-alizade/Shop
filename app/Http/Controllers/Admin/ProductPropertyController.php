@@ -15,4 +15,13 @@ class ProductPropertyController extends Controller
             'product' => $product
         ]);
     }
+
+
+    public function store(Request $request, Product $product)
+    {
+        // sync() => و همه ی این موارد از همین صفحه استفاده بکنیم و صفحه دیگه استفاده نمی کنیم store and edit دلیل استفاده ازش این هست که قراره ما برای
+        $product->properties()->sync($request->get('properties'));
+
+        return redirect()->back();
+    }
 }
