@@ -10,4 +10,9 @@ class PropertyGroup extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function properties()
+    {
+        return $this->hasMany(Property::class);
+    }
 }
