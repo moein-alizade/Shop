@@ -60,6 +60,9 @@
                                     <td>
                                         <a href="{{route('products.properties.index', $product)}}" class="btn btn-sm btn-warning">ویژگی ها</a>
                                     </td>
+                                    <td>
+                                        <a href="{{route('products.comments.index', $product)}}" class="btn btn-sm btn-warning">کامنت ها</a>
+                                    </td>
                                     <td></td>
                                     <td>
                                         <a href="{{route('products.edit', $product)}}" class="btn btn-sm btn-primary">ویرایش</a>

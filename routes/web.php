@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\PropertyGroupController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Client\CommentController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\RegisterController;
@@ -79,6 +80,9 @@ Route::prefix('/adminpanel')->middleware([
     Route::get('/products/{product}/properties/create', [ProductPropertyController::class, 'create'])->name('products.properties.create');
 
     Route::post('/products/{product}/properties', [ProductPropertyController::class, 'store'])->name('products.properties.store');
+
+    Route::get('/products/{product}/comments', [AdminCommentController::class, 'index'])->name('products.comments.index');
+    Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])->name('comments.destroy');
 
 
     Route::resource('propertyGroups', PropertyGroupController::class);
