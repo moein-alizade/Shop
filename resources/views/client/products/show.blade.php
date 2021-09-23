@@ -141,33 +141,32 @@
                                     <p>بدون نیاز به ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
                                 </div>
                             </div>
+
+
+                            {{-- ذخیره کردن گروه های مشخصات داخل یک متغیری --}}
+                            @php
+                                $propertyGroups = $product->category->propertyGroups;
+                            @endphp
+
+
                             <div id="tab-specification" class="tab-pane">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <td colspan="2"><strong>حافظه</strong></td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>تست 1</td>
-                                        <td>8gb</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <td colspan="2"><strong>پردازشگر</strong></td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>تعداد هسته</td>
-                                        <td>1</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                @foreach($propertyGroups as $group)
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <td colspan="2"><strong>{{$group->title}}</strong></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                           @foreach($group->properties as $property)
+                                               <tr>
+                                                   <td>{{$property->title}}</td>
+                                                   <td>{{$property->getValueForProduct($product)}}</td>
+                                               </tr>
+                                           @endforeach
+                                        </tbody>
+                                    </table>
+                                @endforeach
                             </div>
                             <div id="tab-review" class="tab-pane">
                                 <form class="form-horizontal">
