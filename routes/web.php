@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Client\CommentController;
+use App\Http\Controllers\Client\LikeController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\RegisterController;
 use App\Http\Middleware\CheckPermission;
@@ -83,6 +84,11 @@ Route::prefix('/adminpanel')->middleware([
 
     Route::get('/products/{product}/comments', [AdminCommentController::class, 'index'])->name('products.comments.index');
     Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])->name('comments.destroy');
+
+
+
+    Route::post('/likes/{product}/', [LikeController::class, 'store'])->name('like');
+
 
 
     Route::resource('propertyGroups', PropertyGroupController::class);
