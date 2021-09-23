@@ -127,4 +127,10 @@ class Product extends Model
             ->withTimestamps();
     }
 
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

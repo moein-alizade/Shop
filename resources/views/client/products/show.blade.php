@@ -126,7 +126,7 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#tab-description" data-toggle="tab">توضیحات</a></li>
                             <li><a href="#tab-specification" data-toggle="tab">مشخصات</a></li>
-                            <li><a href="#tab-review" data-toggle="tab">بررسی (2)</a></li>
+                            <li><a href="#tab-review" data-toggle="tab">بررسی ({{$product->comments->count()}})</a></li>
                         </ul>
                         <div class="tab-content">
                             <div itemprop="description" id="tab-description" class="tab-pane active">
@@ -149,6 +149,7 @@
                             @endphp
 
 
+
                             <div id="tab-specification" class="tab-pane">
                                 @foreach($propertyGroups as $group)
                                     <table class="table table-bordered">
@@ -169,50 +170,46 @@
                                 @endforeach
                             </div>
                             <div id="tab-review" class="tab-pane">
-                                <form class="form-horizontal">
                                     <div id="review">
                                         <div>
-                                            <table class="table table-striped table-bordered">
-                                                <tbody>
-                                                <tr>
-                                                    <td style="width: 50%;"><strong><span>هاروی</span></strong></td>
-                                                    <td class="text-right"><span>1395/1/20</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2"><p>ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-                                                        <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> </div></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="table table-striped table-bordered">
-                                                <tbody>
-                                                <tr>
-                                                    <td style="width: 50%;"><strong><span>اندرسون</span></strong></td>
-                                                    <td class="text-right"><span>1395/1/20</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2"><p>ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-                                                        <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            {{-- latest()->get() =>  مرتب کردن براساس آخرین تغییرات --}}
+                                            @foreach($product->comments()->latest()->get() as $comment)
+                                                <table class="table table-striped table-bordered">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;"><strong><span>{{$comment->user->name}}</span></strong></td>
+                                                        {{--  diffForHumans() => یک تابعی بر روی پکیج کربن که لاراول ازش برای مدیریت زمان استفاده می کند    --}}
+                                                        {{--  format('Y/m/d') => مشخص کردن فرمت یا شکل تاریخ    --}}
+                                                        <td class="text-right"><span>{{$comment->created_at->diffForHumans()}}</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2"><p>{{$comment->content}}</p>
+                                                            <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> </div></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            @endforeach
                                         </div>
                                         <div class="text-right"></div>
                                     </div>
                                     <h2>یک بررسی بنویسید</h2>
-                                    <div class="form-group required">
-                                        <div class="col-sm-12">
-                                            <label for="input-name" class="control-label">نام شما</label>
-                                            <input type="text" class="form-control" id="input-name" value="" name="name">
+
+                                    @auth()
+                                        <form action="{{route('client.products.comments.store', $product)}}" method="post">
+                                        @csrf
+                                        <div class="form-group required">
+                                            <div class="col-sm-12">
+                                                <label for="content" class="control-label">بررسی شما</label>
+                                                <textarea class="form-control" id="content" rows="5" name="content"></textarea>
+                                                <div class="help-block"><span class="text-danger">توجه :</span> HTML بازگردانی نخواهد شد!</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group required">
-                                        <div class="col-sm-12">
-                                            <label for="input-review" class="control-label">بررسی شما</label>
-                                            <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
-                                            <div class="help-block"><span class="text-danger">توجه :</span> HTML بازگردانی نخواهد شد!</div>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-primary btn-sm" value="ثبت دیدگاه">
                                         </div>
-                                    </div>
+                                    </form>
+                                    @endauth
+
                                     <div class="form-group required">
                                         <div class="col-sm-12">
                                             <label class="control-label">رتبه</label>
@@ -233,7 +230,6 @@
                                             <button class="btn btn-primary" id="button-review" type="button">ادامه</button>
                                         </div>
                                     </div>
-                                </form>
                             </div>
                         </div>
                         <h3 class="subtitle">محصولات مرتبط</h3>

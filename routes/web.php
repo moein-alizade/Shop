@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\PropertyGroupController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Client\CommentController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\RegisterController;
 use App\Http\Middleware\CheckPermission;
@@ -29,6 +30,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('')->name('client.')->group(function() {
     Route::get('/',[\App\Http\Controllers\Client\HomeController::class, 'index'])->name('index');
     Route::get('/products/{product}', [ClientProductController::class, 'show'])->name('products.show');
+
+
+
+    Route::post('/products/{product}/comments/store', [CommentController::class, 'store'])->name('products.comments.store');
+
 
 
     Route::delete('/logout', [RegisterController::class, 'logout'])->name('logout');
