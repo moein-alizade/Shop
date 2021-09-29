@@ -10,8 +10,10 @@ class LikeController extends Controller
 {
     public function store(Request $request, Product $product)
     {
+
         auth()->user()->like($product);
 
-        return back();
+        // response(['content'], 'status code')
+        return response(['mst' => 'liked'], '200');
     }
 }

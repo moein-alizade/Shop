@@ -31,6 +31,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('')->name('client.')->group(function() {
     Route::get('/',[\App\Http\Controllers\Client\HomeController::class, 'index'])->name('index');
+
+
+
+
+    Route::post('/likes/{product}', [LikeController::class, 'store'])->name('like')->middleware('auth');
+
+
+
+
+
     Route::get('/products/{product}', [ClientProductController::class, 'show'])->name('products.show');
 
 
@@ -84,11 +94,6 @@ Route::prefix('/adminpanel')->middleware([
 
     Route::get('/products/{product}/comments', [AdminCommentController::class, 'index'])->name('products.comments.index');
     Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])->name('comments.destroy');
-
-
-
-    Route::post('/likes/{product}/', [LikeController::class, 'store'])->name('like');
-
 
 
     Route::resource('propertyGroups', PropertyGroupController::class);

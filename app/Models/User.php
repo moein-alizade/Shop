@@ -5,11 +5,11 @@ namespace App\Models;
 use App\Mail\OtpMail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -98,6 +98,7 @@ class User extends Authenticatable
         return $user;
     }
 
+
     public function likes()
     {
         return $this->belongsToMany(Product::class, 'likes')
@@ -107,7 +108,16 @@ class User extends Authenticatable
 
     public function like(Product $product)
     {
-        $this->likes()->sync($product);
-    }
+        // چک کنیم که این محصول موردنظر قبلا لایک شده یا نه
+        $isLikedBefore = $this->likes()
+            ->where('id', $product->id)
+            ->exists();
 
+        // اگه قبلا لایک شده و دوباره روی لایک کلیک شد آنگاه آن لایک را غیرفعال کن
+        if($isLikedBefore){
+            return $this->likes()->detach($product);
+        }
+
+        return $this->likes()->attach($product);
+    }
 }

@@ -23,6 +23,11 @@
     {{-- برای اینکه هر صفحه ممکنه لینک های اختصاصی خودش را داشته باشد   --}}
    @yield('links')
     <!-- CSS Part End-->
+    <style>
+        .like {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper-wide">
@@ -326,6 +331,42 @@
 <script type="text/javascript" src="/client/js/jquery.dcjqaccordion.min.js"></script>
 <script type="text/javascript" src="/client/js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/client/js/custom.js"></script>
+<script>
+    function like(productId) {
+        // console.log('hi') => برای تست کردن
+        // console.log(productId)
+
+        // قرستادن یک request بصورت ajax
+        // ساختن request_ajax و ساختن تنظیمات موردنظرمان
+
+        // data =>  اطلاعاتی که از سمت سرور به ما داده می شود
+
+        // >.fa-heart => را دارد آنگاه آنرا بگیر fa-heart المنتی با
+
+        //  $('#like-' + productId) => باشد ('#like-' + productId) که آیدی اش برابر با  button یک
+
+        // var var_name => تعریف متغیر
+
+        $.ajax({
+            type: 'post',
+            url: '/likes/' + productId,
+            data: {
+                _token: "{{csrf_token()}}"
+            },
+
+            success: function (data){
+                var icon = $('#like-' + productId + '>.fa-heart');
+
+
+                if(icon.hasClass('like')){
+                    icon.removeClass('like')
+                } else {
+                    icon.addClass('like')
+                }
+            }
+        })
+    }
+</script>
 
 @yield('scripts')
 <!-- JS Part End-->

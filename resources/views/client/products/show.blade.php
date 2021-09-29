@@ -106,7 +106,9 @@
                                             <button type="button" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</button>
                                         </div>
                                         <div>
-                                            <button type="button" class="wishlist" onClick=""><i class="fa fa-heart"></i> افزودن به علاقه مندی ها</button>
+                                            @if(auth()->check())
+                                                <button type="button" class="wishlist" id="like-{{$product->id}}" onClick="like({{$product->id}});"><i class="fa fa-heart"></i> افزودن به علاقه مندی ها</button>
+                                            @endif
                                             <br />
                                             <button type="button" class="wishlist" onClick=""><i class="fa fa-exchange"></i> مقایسه این محصول</button>
                                         </div>
