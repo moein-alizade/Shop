@@ -35,7 +35,8 @@ Route::prefix('')->name('client.')->group(function() {
 
 
 
-    Route::post('/likes/{product}', [LikeController::class, 'store'])->name('like')->middleware('auth');
+    Route::get('/likes/', [LikeController::class, 'index'])->name('likes.index');
+    Route::post('/likes/{product}', [LikeController::class, 'store'])->name('likes');
 
 
 

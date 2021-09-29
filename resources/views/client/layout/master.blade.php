@@ -69,7 +69,13 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li><a href="#">لیست علاقه مندی (0)</a></li>
+
+
+                                @auth
+                                    <li><a href="{{route('client.likes.index')}}">لیست علاقه مندی ({{auth()->user()->likes()->count()}})</a></li>
+                                @endauth
+
+
                                 <li><a href="checkout.html">تسویه حساب</a></li>
                             </ul>
                         </div>
