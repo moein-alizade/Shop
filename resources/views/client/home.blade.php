@@ -213,9 +213,9 @@
                 <div id="content" class="col-sm-9">
                     <!-- Slideshow Start-->
                     <div class="slideshow single-slider owl-carousel">
-                        <div class="item"> <a href="#"><img class="img-responsive" src="/client/image/slider/banner-1.jpg" alt="banner 1" /></a> </div>
-                        <div class="item"> <a href="#"><img class="img-responsive" src="/client/image/slider/banner-2.jpg" alt="banner 2" /></a> </div>
-                        <div class="item"> <a href="#"><img class="img-responsive" src="/client/image/slider/banner-3.jpg" alt="banner 3" /></a> </div>
+                        @foreach($slides as $slide)
+                            <div class="item"> <a href="{{$slide->link}}"><img class="img-responsive" src="{{str_replace('public', '/storage', $slide->image)}}" alt="banner 1" /></a> </div>
+                        @endforeach
                     </div>
                     <!-- Slideshow End-->
                     <!-- Featured محصولات Start-->
@@ -744,7 +744,10 @@
                                         <div class="button-group">
                                             <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
                                             <div class="add-to-links">
-                                                <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
+                                                <button type="button" class="wishlist" id="like-{{$product->id}}" onClick="like({{$product->id}});">
+                                                    {{-- <i class="fa fa-heart @if($product->is_liked) like @endif"></i> => باقی ماندن لایک قرمز بعد از لایک کردن محصول حتی بعد از رفرش صفحه  --}}
+                                                    <i class="fa fa-heart @if($product->is_liked) like @endif"></i>
+                                                </button>
                                                 <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
                                             </div>
                                         </div>

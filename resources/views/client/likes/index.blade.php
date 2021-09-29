@@ -33,8 +33,14 @@
                                     <td class="text-left"><a href="{{route('client.products.show', $product)}}">{{$product->name}}</a></td>
                                     <td class="text-left">{{$product->category->title}}</td>
                                     <td class="text-right"><div class="price">{{$product->cost}}</div></td>
-                                    <td class="text-right"><button class="btn btn-primary" title="" data-toggle="tooltip" onClick="cart.add('48');" type="button" data-original-title="افزودن به سبد"><i class="fa fa-shopping-cart"></i></button>
-                                        <a class="btn btn-danger" title="" data-toggle="tooltip" href="http://localhost/2.2.0.0-compiled/index.php?route=account/wishlist&amp;remove=48" data-original-title="حذف"><i class="fa fa-times"></i></a></td>
+                                    <td class="text-right">
+                                        <button class="btn btn-primary" title="" data-toggle="tooltip" onClick="cart.add('48');" type="button" data-original-title="افزودن به سبد"><i class="fa fa-shopping-cart"></i></button>
+                                        <form action="{{route('client.likes.destroy', $product)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

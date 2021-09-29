@@ -71,8 +71,9 @@
                                 </li>
 
 
+                                {{--  <span id="likes_count">{{auth()->user()->likes()->count()}}</span>)</a></li>   =>  آپدیت تعداد لایک ها در بالای صفحه بعد از لایک کردن محصول  --}}
                                 @auth
-                                    <li><a href="{{route('client.likes.index')}}">لیست علاقه مندی ({{auth()->user()->likes()->count()}})</a></li>
+                                    <li><a href="{{route('client.likes.index')}}">لیست علاقه مندی (<span id="likes_count">{{auth()->user()->likes()->count()}}</span>)</a></li>
                                 @endauth
 
 
@@ -353,6 +354,8 @@
 
         // var var_name => تعریف متغیر
 
+        // $('#likes_count')   =>      $ = المنت   ,  '#likes_count' =  آیدی اش
+
         $.ajax({
             type: 'post',
             url: '/likes/' + productId,
@@ -369,6 +372,9 @@
                 } else {
                     icon.addClass('like')
                 }
+
+                $('#likes_count').text(data.likes_count)
+
             }
         })
     }

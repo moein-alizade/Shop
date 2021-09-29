@@ -27,6 +27,14 @@ class LikeController extends Controller
         auth()->user()->like($product);
 
         // response(['content'], 'status code')
-        return response(['mst' => 'liked'], '200');
+        return response(['likes_count' => auth()->user()->likes()->count()], '200');
+    }
+
+
+    public function destroy(Product $product)
+    {
+        auth()->user()->likes()->detach($product);
+
+        return back();
     }
 }

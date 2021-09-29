@@ -140,4 +140,11 @@ class Product extends Model
             ->withTimestamps();
     }
 
+
+    // چک می کند که این محصول توسط این کاربر فعلی مون لایک شده یا نه
+    public function getIsLikedAttribute()
+    {
+        return $this->likes()->where('user_id', auth()->id())->exists();
+    }
+
 }

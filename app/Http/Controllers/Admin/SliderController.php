@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BrandRequest;
-use App\Http\Requests\BrandUpdateRequest;
 use App\Models\Brand;
+use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class BrandController extends Controller
+class SliderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return view('admin.brands.index', [
-            'brands' => Brand::all()
+        return view('admin.sliders.index', [
+            'sliders' => Slider::all()
         ]);
     }
 
@@ -29,7 +29,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('admin.brands.create');
+        return view('admin.sliders.create');
     }
 
     /**
@@ -38,47 +38,32 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function store(BrandRequest $request)
+    public function store(Request $request)
     {
-        // upload file
-
-        // file('image') => هست، می توان به اطلاعات عکس پی ببریم $request با استفاده از این تابع که در آبجکت
-        // dd($request->file('image'));
-
-        // save file in laravel
-        // $request->file('image')->store('image') => (Path: storage/app/image)
-
-
-        // $path = مسیر رسیدن به فایل آپلود یا ذخیره شده در دیتابیس
-        // $path = $request->file('image')->store('image');
-
-        // storeAs('image', 'brand_image') => باشد jpg با استفاده از متغیر دوم این تابع می توان اسم فایل آپلود شده را شخصی سازی کرد که کد روبرو یعنی فرمت فایل حتما باید
-        // $path = $request->file('image')->storeAs('image', 'brand_image.jpg');
-
-        // getClientOriginalName() => اسم واقعی فایل رو بر می گرداند
         $path = $request->file('image')->storeAs(
-            'public/image',
+            'public/sliders',
             $request->file('image')->getClientOriginalName()
         );
 
 
 
         // save in database
-        Brand::query()->create([
-            'name' => $request->get('name'),
+        Slider::query()->create([
+            'link' => $request->get('link'),
             'image' => $path
         ]);
 
-        return redirect(route('brands.index'));
+
+        return redirect(route('sliders.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show(Slider $slider)
     {
         //
     }
@@ -86,13 +71,13 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit(Slider $slider)
     {
-        return view('admin/brands/edit', [
-           'brand' => $brand
+        return view('admin.sliders.edit', [
+            'sliders' => $slider
         ]);
     }
 
@@ -100,41 +85,40 @@ class BrandController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(BrandUpdateRequest $request, Brand $brand)
+    public function update(Request $request, Slider $slider)
     {
-        $path = $brand->image;
+        $path = $slider->image;
 
         // برای اینکه اگه کاربر تصویر جدید آپلود کرد آنگاه توی دیتابیس ذخیره کن
         // hasFile('image') => بریز $path بود آنگاه بیا مسیر فایل جدید را درون 'request' داخل 'image' چک می کند که یک فایلی آپلود شده یا خیر یعنی چک می کند اگه فایلی بنام
         if($request->hasFile('image'))
         {
             $path = $request->file('image')->storeAs(
-                'public/image', $request->file('image')->getClientOriginalName()
+                'public/sliders', $request->file('image')->getClientOriginalName()
             );
         }
 
-        $brand->update([
-            'name' => $request->get('name'),
+        $slider->update([
+            'link' => $request->get('link'),
             'image' => $path,
         ]);
 
-        return redirect(route('brands.index'));
-
+        return redirect(route('sliders.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy(Slider $slider)
     {
-        $brand->delete();
-
-        return redirect(route('brands.index'));
+       Storage::delete($slider->image);
+       $slider->delete();
+       return redirect(route('sliders.index'));
     }
 }

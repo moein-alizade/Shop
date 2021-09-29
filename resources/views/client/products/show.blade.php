@@ -107,7 +107,10 @@
                                         </div>
                                         <div>
                                             @if(auth()->check())
-                                                <button type="button" class="wishlist" id="like-{{$product->id}}" onClick="like({{$product->id}});"><i class="fa fa-heart"></i> افزودن به علاقه مندی ها</button>
+                                                <button type="button" class="wishlist" id="like-{{$product->id}}" onClick="like({{$product->id}});">
+                                                    {{-- <i class="fa fa-heart @if($product->is_liked) like @endif"></i> => باقی ماندن لایک قرمز بعد از لایک کردن محصول حتی بعد از رفرش صفحه  --}}
+                                                    <i class="fa fa-heart @if($product->is_liked) like @endif"></i> افزودن به علاقه مندی ها
+                                                </button>
                                             @endif
                                             <br />
                                             <button type="button" class="wishlist" onClick=""><i class="fa fa-exchange"></i> مقایسه این محصول</button>

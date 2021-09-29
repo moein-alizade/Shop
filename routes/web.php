@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductPropertyController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\PropertyGroupController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Client\CommentController;
@@ -36,7 +37,8 @@ Route::prefix('')->name('client.')->group(function() {
 
 
     Route::get('/likes/', [LikeController::class, 'index'])->name('likes.index');
-    Route::post('/likes/{product}', [LikeController::class, 'store'])->name('likes');
+    Route::post('/likes/{product}', [LikeController::class, 'store'])->name('like');
+    Route::delete('/likes/{product}', [LikeController::class, 'destroy'])->name('likes.destroy');
 
 
 
@@ -79,6 +81,8 @@ Route::prefix('/adminpanel')->middleware([
     //    Route::delete('/categories/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('panel.categories.destroy');
 
     Route::resource('brands', BrandController::class);
+
+    Route::resource('sliders', SliderController::class);
 
     Route::resource('products', ProductController::class);
 
