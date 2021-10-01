@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SliderRequest;
 use App\Models\Brand;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -35,10 +36,10 @@ class SliderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param SliderRequest $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(SliderRequest $request)
     {
         $path = $request->file('image')->storeAs(
             'public/sliders',
@@ -84,12 +85,17 @@ class SliderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Slider  $slider
+     * @param SliderRequest $request
+     * @param \App\Models\Slider $slider
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, Slider $slider)
     {
+        $this->validate($request, [
+            'link' => ['required']
+        ]);
+
+
         $path = $slider->image;
 
         // برای اینکه اگه کاربر تصویر جدید آپلود کرد آنگاه توی دیتابیس ذخیره کن
