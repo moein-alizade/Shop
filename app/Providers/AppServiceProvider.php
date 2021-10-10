@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 // Category::query()->where('category_id', null)->get() => فقط دسته بندی های والد و بدون فرزند را برگردان
                 'categories' => Category::query()->where('category_id', null)->get(),
-                'brands' => Brand::all()
+                'brands' => Brand::all(),
             ]);
         });
     }

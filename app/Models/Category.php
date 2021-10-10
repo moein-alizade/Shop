@@ -28,7 +28,7 @@ class Category extends Model
 
 
     // برای هر دسته بندی اصلی اگه اون دسته بندی فرزندی داشته باشد بیا محصولات همه فرزندان آن دسته بندی را برای ما برگردون
-    public function getAllSubCategoryProducts()
+    public function getAllSubCategoryProductsAttribute()
     {
         // pluck('') => یک فیلد خاصی از اون جدولی که می خواهیم برای ما بر می گرداند
 

@@ -476,6 +476,7 @@
                     <ul class="treeview-menu">
                         <li><a href="{{route('categories.create')}}"><i class="mdi mdi-toggle-switch-off"></i>ایجاد</a></li>
                         <li><a href="{{route('categories.index')}}"><i class="mdi mdi-toggle-switch-off"></i>لیست</a></li>
+                        <li><a href="{{route('featuredCategory.create')}}"><i class="mdi mdi-toggle-switch-off"></i>انتخاب دسته بندی ویژه</a></li>
                     </ul>
                 </li>
 
