@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\FeaturedCategoryController;
+use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\PictureController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductPropertyController;
@@ -105,6 +106,12 @@ Route::prefix('/adminpanel')->middleware([
     Route::resource('propertyGroups', PropertyGroupController::class);
 
     Route::resource('properties', PropertyController::class);
+
+
+
+    Route::resource('offers', OfferController::class);
+
+
 
 
     Route::resource('roles', RoleController::class);
