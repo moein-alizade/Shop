@@ -30,6 +30,7 @@
                             </select>
                         </div>
 
+                        @include('admin.layout.errors')
 
 
                         <div class="form-group">

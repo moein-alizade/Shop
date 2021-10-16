@@ -31,14 +31,7 @@
                         </div>
 
 
-                        {{-- show errors --}}
-                        @if(count($errors->all()) > 0)
-                            <ul class="bg-danger">
-                                @foreach($errors->all() as $error)
-                                    <li class="text-white">{{$error}}</li>
-                                @endforeach
-                            </ul>
-                        @endif
+                        @include('admin.layout.errors')
 
                         <div class="form-group">
                             <input type="submit" name="submit" id="submit" value="ثبت" class="btn btn-primary">

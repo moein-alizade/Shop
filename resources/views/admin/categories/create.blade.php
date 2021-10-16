@@ -41,6 +41,8 @@
                         </div>
 
 
+                        @include('admin.layout.errors')
+
                         <div class="form-group">
                             <input type="submit" name="submit" id="submit" value="ثبت" class="btn btn-primary">
                         </div>

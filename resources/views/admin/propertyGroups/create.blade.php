@@ -27,4 +27,6 @@
         </div>
     </div>
 
+    @include('admin.layout.errors')
+
 @endsection
