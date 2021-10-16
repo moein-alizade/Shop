@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OfferRequest;
+use App\Http\Requests\OfferUpdateRequest;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 
@@ -35,11 +36,19 @@ class OfferController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(OfferRequest $request)
     {
-        //
+        Offer::query()->create([
+            'code' => $request->get('code'),
+            'starts_at' => $request->get('starts_at'),
+            'expires_at' => $request->get('expires_at'),
+        ]);
+
+
+
+        return redirect('/adminpanel/offers');
     }
 
     /**
@@ -71,11 +80,34 @@ class OfferController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update(Request $request, Offer $offer)
+    public function update(OfferUpdateRequest $request, Offer $offer)
     {
-        //
+        // آیا تخفیفی وجود دارد که کدش با این کدی که request داده شده برابر باشد و در جایی غیر از تخفیف فعلی که داریم آپدیت می کنیم، آن کد استفاده شده باشد تا درنهایت کدهای تخفیفان بصورت یکتا باقی بمانند
+        $codeIsNotUnique = Offer::query()
+            ->where('code', $request->get('code'))
+            ->where('id', '!=', $offer->id)
+            ->exists();
+
+
+
+        if($codeIsNotUnique)
+        {
+            return redirect()->back()
+                ->withErrors(['code' => 'code must be unique.']);
+        }
+
+
+
+        $offer->update([
+            'code' => $request->get('code'),
+            'starts_at' => $request->get('starts_at'),
+            'expires_at' => $request->get('expires_at'),
+        ]);
+
+
+        return redirect(route('offers.index'));
     }
 
     /**

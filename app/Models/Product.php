@@ -15,6 +15,14 @@ class Product extends Model
     protected $guarded = [];
 
 
+    // one to one (show parent a category)
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class);
+    }
+
+
+
     public function brand()
     {
         return $this->belongsTo(Brand::class);

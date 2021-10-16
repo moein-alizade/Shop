@@ -9,7 +9,7 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h1 class="box-title">
-                        کدهای نخفیف
+                        کدهای تخفیف
                     </h1>
                 </div>
 
@@ -31,8 +31,8 @@
                                 <tr>
                                     <td>{{$offer->id}}</td>
                                     <td>{{$offer->code}}</td>
-                                    <td>{{$offer->starts_at->format('Y-m-d')}}</td>
-                                    <td>{{$offer->expires_at->format('Y-m-d')}}</td>
+                                    <td>{{Carbon\Carbon::parse($offer->starts_at)->format('Y-m-d')}}</td>
+                                    <td>{{Carbon\Carbon::parse($offer->expires_at)->format('Y-m-d')}}</td>
                                     <td>
                                         <a href="{{route('offers.edit', $offer)}}" class="btn btn-sm btn-primary">ویرایش</a>
                                     </td>
