@@ -51,6 +51,11 @@ class CategoryController extends Controller
 
         $category->propertyGroups()->attach($request->get('properties'));
 
+
+        // key: 'success' , value: 'دسته بندی با موفقیت ایجاد شد'
+        session()->flash('success', 'دسته بندی با موفقیت ایجاد شد');
+
+
         return redirect('/adminpanel/categories');
     }
 

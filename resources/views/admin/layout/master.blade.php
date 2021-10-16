@@ -629,6 +629,7 @@
 
         <!-- Main content -->
         <section class="content">
+            @include('admin.layout.notification')
             @yield('content')
             <!-- /.row -->
         </section>
