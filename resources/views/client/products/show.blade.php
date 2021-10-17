@@ -103,7 +103,7 @@
                                                 <a class="qtyBtn mines" href="javascript:void(0);">-</a>
                                                 <div class="clear"></div>
                                             </div>
-                                            <button type="button" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</button>
+                                            <button type="button" id="button-cart" onclick="addToCart({{$product->id}});" class="btn btn-primary btn-lg">افزودن به سبد</button>
                                         </div>
                                         <div>
                                             @if(auth()->check())

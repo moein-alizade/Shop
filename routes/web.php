@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
+use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\CommentController;
 use App\Http\Controllers\Client\LikeController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
@@ -61,6 +62,10 @@ Route::prefix('')->name('client.')->group(function() {
     Route::post('/register/sendmail', [RegisterController::class, 'sendMail'])->name('register.sendmail');
     Route::get('/register/otp/{user}', [RegisterController::class, 'otp'])->name('register.otp');
     Route::post('/register/verifyOtp/{user}', [RegisterController::class, 'verifyOtp'])->name('register.verifyOtp');
+
+
+    Route::post('/cart/{product}', [CartController::class, 'store'])->name('cart.store');
+
 });
 
 

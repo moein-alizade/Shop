@@ -378,6 +378,30 @@
             }
         })
     }
+
+
+
+    function addToCart(productId)
+    {
+        // quantity = تعداد سفارش
+        // val = value
+        var quantity = $('#input-quantity').val();
+
+
+        // مشخص کردن دیتاهایی که باید سمت سرور برود
+        $.ajax({
+            type: 'post',
+            url: "/cart/" + productId,
+            // ورودی ها
+            data: {
+                _token: "{{csrf_token()}}",
+                quantity: quantity
+            }
+        })
+    }
+
+
+
 </script>
 
 @yield('scripts')
