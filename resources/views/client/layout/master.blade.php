@@ -385,7 +385,15 @@
     {
         // quantity = تعداد سفارش
         // val = value
-        var quantity = $('#input-quantity').val();
+
+        var quantity = 1;
+
+
+        // اگه المنت  input-quantity وجود داشت یعنی تعدادش بیشتر از صفر باشد آنگاه در آن صورت بیا مقدار این المنت را بگیر
+        if($('#input-quantity').length)
+        {
+            quantity = $('#input-quantity').val();
+        }
 
 
         // مشخص کردن دیتاهایی که باید سمت سرور برود

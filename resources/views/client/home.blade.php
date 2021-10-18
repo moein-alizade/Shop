@@ -359,7 +359,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="button-group">
-                                                    <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
+                                                    <button class="btn-primary" type="button" onClick="addToCart({{$product->id}});"><span>افزودن به سبد</span></button>
                                                     <div class="add-to-links">
                                                         <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
                                                         <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
@@ -690,7 +690,7 @@
                                             <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
                                         </div>
                                         <div class="button-group">
-                                            <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
+                                            <button class="btn-primary" type="button" onClick="addToCart({{$product->id}});"><span>افزودن به سبد</span></button>
                                             <div class="add-to-links">
                                                 <button type="button" class="wishlist" id="like-{{$product->id}}" onClick="like({{$product->id}});">
                                                     {{-- <i class="fa fa-heart @if($product->is_liked) like @endif"></i> => باقی ماندن لایک قرمز بعد از لایک کردن محصول حتی بعد از رفرش صفحه  --}}
