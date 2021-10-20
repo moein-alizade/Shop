@@ -138,6 +138,9 @@
                         <div id="cart">
                             <button type="button" data-toggle="dropdown" data-loading-text="Loading..." class="heading dropdown-toggle">
                                 <span class="cart-icon pull-left flip"></span>
+                                {{-- ?? در واقع مثل ? هست با این تفاوت که مقدار شرط برابر با مقدار در صورت درست بودن شرط میشه و ما فقط باید مفدار را در صورت غلط بودن شرط تعیین کنیم --}}
+                                {{-- session()->get('cart') => سبد خرید session --}}
+                                {{-- session()->get('cart')['total_items'] => سبد خرید session در total_items فیلد  --}}
                                 <span id="cart-total"><span id="total-items">{{session()->get('cart')['total_items'] ?? 0}}</span> آیتم - <span id="total-amount">{{session()->get('cart')['total_amount'] ?? 0}}</span> تومان</span></button>
                             <ul class="dropdown-menu">
                                 <li>
@@ -384,14 +387,14 @@
     function addToCart(productId)
     {
         // quantity = تعداد سفارش
-        // val = value
-
         var quantity = 1;
 
 
         // اگه المنت  input-quantity وجود داشت یعنی تعدادش بیشتر از صفر باشد آنگاه در آن صورت بیا مقدار این المنت را بگیر
+        // اگر تعداد سفارش بیشتر 1 بود آنگاه بیا تعداد همان سفارش را درون متغیر quantity بگذار
         if($('#input-quantity').length)
         {
+            // val = value
             quantity = $('#input-quantity').val();
         }
 
@@ -406,6 +409,7 @@
                 quantity: quantity
             },
 
+            // در صورت موفقیت آمیز بودن و عوض کن مقادیر مجموع آیتم ها و مجموع قیمت ها
             success: function (data)
             {
                 // تغییر دادن text یک فیلد

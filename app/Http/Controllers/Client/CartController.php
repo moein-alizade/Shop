@@ -16,7 +16,7 @@ class CartController extends Controller
         // $product = Product::find($request->get('productId'));
 
 
-
+        // ایجاد سبد خرید جدید طبق محصول و اطلاعات فرستاده شده مربوط به آن
         Cart::new($product, $request);
 
 
