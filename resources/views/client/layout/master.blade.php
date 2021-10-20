@@ -138,7 +138,7 @@
                         <div id="cart">
                             <button type="button" data-toggle="dropdown" data-loading-text="Loading..." class="heading dropdown-toggle">
                                 <span class="cart-icon pull-left flip"></span>
-                                <span id="cart-total"><span id="total-items">0</span> آیتم - <span id="total-amount">0</span> تومان</span></button>
+                                <span id="cart-total"><span id="total-items">{{session()->get('cart')['total_items'] ?? 0}}</span> آیتم - <span id="total-amount">{{session()->get('cart')['total_amount'] ?? 0}}</span> تومان</span></button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <table class="table">
