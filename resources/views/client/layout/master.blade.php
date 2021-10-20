@@ -138,7 +138,7 @@
                         <div id="cart">
                             <button type="button" data-toggle="dropdown" data-loading-text="Loading..." class="heading dropdown-toggle">
                                 <span class="cart-icon pull-left flip"></span>
-                                <span id="cart-total">2 آیتم - 132000 تومان</span></button>
+                                <span id="cart-total"><span id="total-items">0</span> آیتم - <span id="total-amount">0</span> تومان</span></button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <table class="table">
@@ -404,6 +404,13 @@
             data: {
                 _token: "{{csrf_token()}}",
                 quantity: quantity
+            },
+
+            success: function (data)
+            {
+                // تغییر دادن text یک فیلد
+                $('#total-items').text(data.cart.total_items);
+                $('#total-amount').text(data.cart.total_amount);
             }
         })
     }
