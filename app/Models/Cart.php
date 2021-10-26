@@ -34,13 +34,17 @@ class Cart
         // $cart[$product->id] => یعنی اگر محصولی قرار بود چند بار کلیک و  به سبد خرید اضافه شود آنگاه بیاید جای رکورد قبلی خودش قرار بگیرد
         $cart[$product->id] = [
             'product' => $product,
-//            'quantity' => $request->get('quantity')
              'quantity' => $quantity
         ];
 
 
-        $cart['total_items'] = Cart::totalItems($cart);
-        $cart['total_amount'] = Cart::totalAmount($cart);
+        session()->put([
+            'cart' => $cart
+        ]);
+
+
+        $cart['total_items'] = Cart::totalItems();
+        $cart['total_amount'] = Cart::totalAmount();
 
 
 
@@ -54,14 +58,14 @@ class Cart
     }
 
     // محاسبه مجموع قیمت محصولات سبد خرید
-    public static function totalAmount($cart)
+    public static function totalAmount()
     {
 
         $totalAmount = 0;
 
 
 
-        foreach ($cart as $cartItem) {
+        foreach (self::getCart() as $cartItem) {
             // اگر این دو تا ایندکس وجود داشت
             if (is_array($cartItem) && array_key_exists('product', $cartItem) && array_key_exists('quantity', $cartItem)) {
                 // تعداد آن محصول توی سبد خرید * قیمت تخفیف خورده ( یا تخفیف نخورد) محصول =+ قیمت فعلی سبد خرید
@@ -75,10 +79,10 @@ class Cart
     }
 
 
-    public static function getItems($cart)
+    public static function getItems()
     {
         // استفاده از کالکشن و فیلتر کردن آرایه ی items
-        return collect($cart)->filter(function ($item){
+        return collect(self::getCart())->filter(function ($item){
             // اگه آرایه بود آنگاه بیا آیتم را بگردان
             return is_array($item);
         });
@@ -86,9 +90,9 @@ class Cart
 
 
 
-    public static function totalItems($cart)
+    public static function totalItems()
     {
-        $items = self::getItems($cart);
+        $items = self::getItems();
 
         return count($items);
     }

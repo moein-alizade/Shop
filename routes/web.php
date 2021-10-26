@@ -66,6 +66,7 @@ Route::prefix('')->name('client.')->group(function() {
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/{product}', [CartController::class, 'store'])->name('cart.store');
 
 
