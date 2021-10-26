@@ -11,13 +11,6 @@ class Cart
 
     public static function new(Product $product, Request $request)
     {
-        // سبد خرید اولیه با مقادیر اولیه صفر برای total_amount and total_items
-//        $cart = [
-//            'total_amount' => 0,
-//            'total_items' => 0
-//        ];
-
-
 
         // چک کنیم که آیا توی session قبلا سبد خرید ایجاد شده یا نه
         // آیا قبلا سبد خرید داریم یا نه
