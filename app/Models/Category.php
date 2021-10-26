@@ -15,14 +15,55 @@ class Category extends Model
     // one to one (show parent a category)
     public function parent()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id')->withDefault(['title' => '-']);
     }
+
 
 
     // one to n (find children a category or subCategory)
     public function children()
     {
         return $this->hasMany(Category::class, 'category_id');
+    }
+
+
+    // برای هر دسته بندی اصلی اگه اون دسته بندی فرزندی داشته باشد بیا محصولات همه فرزندان آن دسته بندی را برای ما برگردون
+    public function getAllSubCategoryProductsAttribute()
+    {
+        // pluck('') => یک فیلد خاصی از اون جدولی که می خواهیم برای ما بر می گرداند
+
+        // بدست آوردن آیدی فرزندان این دسته بندی خاص را برگردان
+        $childrenIds = $this->children()->pluck('id');
+
+
+        // دنبال محصولاتی بگرد که آیدی های فرزندان این دسته بندی را در خودش دارد
+        // whereIn('category_id', $childrenIds) => محصولات مربوط به فرزندان دسته بندی رو بگرد و در صورت وجود آنها را نمایش بده
+        // orWhere('category_id', $this->id) =>  محصولات خود دسته بندی را بگرد و در صورت وجود آنها را نمایش بده
+        return Product::query()
+            ->whereIn('category_id', $childrenIds)
+            ->orWhere('category_id', $this->id)
+            ->get();
+    }
+
+
+    public function getHasChildrenAttribute()
+    {
+        return $this->children()->count() > 0;
+    }
+
+
+    public function propertyGroups()
+    {
+        return $this->belongsToMany(PropertyGroup::class);
+    }
+
+
+    public function hasPropertyGroup(PropertyGroup $propertyGroup)
+    {
+        // آیا این property وجود دارد یا نه
+        return $this->propertyGroups()
+            ->where('property_group_id', $propertyGroup->id)
+            ->exists();
     }
 
 }

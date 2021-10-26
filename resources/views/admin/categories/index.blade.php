@@ -26,11 +26,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach($categories as $category)
+                                @foreach($cts as $category)
                                     <tr>
                                         <td>{{$category->id}}</td>
                                         <td>{{$category->title}}</td>
-                                        <td>{{optional($category->parent)->title}}</td>
+                                        <td>{{$category->parent->title}}</td>
                                         <td>
                                             <a href="{{route('categories.edit', $category)}}" class="btn btn-sm btn-primary">ویرایش</a>
                                         </td>

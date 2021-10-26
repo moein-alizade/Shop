@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewCategoryRequest;
 use App\Models\Category;
+use App\Models\PropertyGroup;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -17,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('admin.categories.index', [
-            'categories' => Category::all()
+            'cts' => Category::with(['parent'])->get()
         ]);
     }
 
@@ -29,7 +30,8 @@ class CategoryController extends Controller
     public function create()
     {
         return view('admin.categories.create', [
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'properties' => PropertyGroup::all()
         ]);
     }
 
@@ -41,10 +43,14 @@ class CategoryController extends Controller
      */
     public function store(NewCategoryRequest $request)
     {
-        Category::query()->create([
+        $category = Category::query()->create([
            'title' => $request->get('title'),
            'category_id' => $request->get('category_id'),
         ]);
+
+
+        $category->propertyGroups()->attach($request->get('properties'));
+
 
         return redirect('/adminpanel/categories');
     }
@@ -72,6 +78,7 @@ class CategoryController extends Controller
             'category' => $category,
             // send other categories => تا امکان ویرایش والد دسته بندی را داشته باشیم
             'categories' => Category::all(),
+            'properties' => PropertyGroup::all()
         ]);
     }
 
@@ -89,6 +96,11 @@ class CategoryController extends Controller
             'title' => $request->get('title')
         ]);
 
+
+        // sync() => 'attached', 'detached', 'updated'
+        $category->propertyGroups()->sync($request->get('properties'));
+
+
         return redirect(route('categories.index'));
     }
 
@@ -100,6 +112,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category->propertyGroups()->detach();
+
         $category->delete();
 
        return redirect('/adminpanel/categories');
