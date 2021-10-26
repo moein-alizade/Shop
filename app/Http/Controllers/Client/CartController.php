@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function index()
+    {
+        return view('client.cart.index', [
+            'items' => Cart::getItems(),
+            'totalAmount' => Cart::totalAmount(),
+            'totalItems' => Cart::totalItems()
+        ]);
+    }
+
+
     public function store(Request $request, Product $product)
     {
         // وقتی که یک رکورد جدید می خواهیم اضافه کنیم باید اطلاعات کامل محصول را داشته باشیم
@@ -18,8 +28,6 @@ class CartController extends Controller
 
         // ایجاد سبد خرید جدید طبق محصول و اطلاعات فرستاده شده مربوط به آن
         Cart::new($product, $request);
-
-
 
         return response([
             'msg' => 'successful',

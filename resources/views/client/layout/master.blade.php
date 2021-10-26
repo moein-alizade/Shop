@@ -142,6 +142,7 @@
                                 {{-- session()->get('cart') => سبد خرید session --}}
                                 {{-- session()->get('cart')['total_items'] => سبد خرید session در total_items فیلد  --}}
                                 <span id="cart-total"><span id="total-items">{{session()->get('cart')['total_items'] ?? 0}}</span> آیتم - <span id="total-amount">{{session()->get('cart')['total_amount'] ?? 0}}</span> تومان</span></button>
+{{--                                <span id="cart-total"><span id="total-items">{{\App\Models\Cart::totalItems()}}</span> آیتم - <span id="total-amount">{{\App\Models\Cart::totalAmount()}}</span> تومان</span></button>--}}
                             <ul class="dropdown-menu">
                                 <li>
                                     <table class="table">

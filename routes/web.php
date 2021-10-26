@@ -64,7 +64,10 @@ Route::prefix('')->name('client.')->group(function() {
     Route::post('/register/verifyOtp/{user}', [RegisterController::class, 'verifyOtp'])->name('register.verifyOtp');
 
 
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
     Route::post('/cart/{product}', [CartController::class, 'store'])->name('cart.store');
+
 
 });
 
