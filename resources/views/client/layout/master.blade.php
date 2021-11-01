@@ -155,7 +155,7 @@
                                                     $product = $item['product'];
                                                     $productQty = $item['quantity'];
                                                 @endphp
-                                                <tr>
+                                                <tr id="cart-row-{{$product->id}}">
                                                     <td class="text-center"><a href="product.html"><img class="img-thumbnail" title="{{$product->name}}" alt="{{$product->name}}" width="100" src="{{str_replace('public', '/storage', $product->image)}}"></a></td>
                                                     <td class="text-left"><a href="product.html">{{$product->name}}</a></td>
                                                     <td class="text-right">x {{$productQty}}</td>
@@ -432,6 +432,7 @@
                 // تغییر دادن text یک فیلد
                 $('#total-items').text(data.cart.total_items);
                 $('#total-amount').text(data.cart.total_amount);
+                $('#cart-row-' + productId).remove();
             }
         })
     }
