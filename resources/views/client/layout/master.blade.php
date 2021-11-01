@@ -141,25 +141,28 @@
                                 {{-- ?? در واقع مثل ? هست با این تفاوت که مقدار شرط برابر با مقدار در صورت درست بودن شرط میشه و ما فقط باید مفدار را در صورت غلط بودن شرط تعیین کنیم --}}
                                 {{-- session()->get('cart') => سبد خرید session --}}
                                 {{-- session()->get('cart')['total_items'] => سبد خرید session در total_items فیلد  --}}
-                                <span id="cart-total"><span id="total-items">{{session()->get('cart')['total_items'] ?? 0}}</span> آیتم - <span id="total-amount">{{session()->get('cart')['total_amount'] ?? 0}}</span> تومان</span></button>
+                                <span id="cart-total">
+                                    <span id="total-items">{{session()->get('cart')['total_items'] ?? 0}}</span> آیتم -
+                                    <span id="total-amount">{{session()->get('cart')['total_amount'] ?? 0}}</span> تومان
+                                </span>
+                            </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <table class="table">
+                                    <table id="menu-cart" class="table">
                                         <tbody>
-                                        <tr>
-                                            <td class="text-center"><a href="product.html"><img class="img-thumbnail" title="کفش راحتی مردانه" alt="کفش راحتی مردانه" src="/client/image/product/sony_vaio_1-50x50.jpg"></a></td>
-                                            <td class="text-left"><a href="product.html">کفش راحتی مردانه</a></td>
-                                            <td class="text-right">x 1</td>
-                                            <td class="text-right">32000 تومان</td>
-                                            <td class="text-center"><button class="btn btn-danger btn-xs remove" title="حذف" onClick="" type="button"><i class="fa fa-times"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center"><a href="product.html"><img class="img-thumbnail" title="تبلت ایسر" alt="تبلت ایسر" src="/client/image/product/samsung_tab_1-50x50.jpg"></a></td>
-                                            <td class="text-left"><a href="product.html">تبلت ایسر</a></td>
-                                            <td class="text-right">x 1</td>
-                                            <td class="text-right">98000 تومان</td>
-                                            <td class="text-center"><button class="btn btn-danger btn-xs remove" title="حذف" onClick="" type="button"><i class="fa fa-times"></i></button></td>
-                                        </tr>
+                                            @foreach(\App\Models\Cart::getItems() as $item)
+                                                @php
+                                                    $product = $item['product'];
+                                                    $productQty = $item['quantity'];
+                                                @endphp
+                                                <tr>
+                                                    <td class="text-center"><a href="product.html"><img class="img-thumbnail" title="{{$product->name}}" alt="{{$product->name}}" width="100" src="{{str_replace('public', '/storage', $product->image)}}"></a></td>
+                                                    <td class="text-left"><a href="product.html">{{$product->name}}</a></td>
+                                                    <td class="text-right">x {{$productQty}}</td>
+                                                    <td class="text-right">{{$product->cost_with_discount}} تومان</td>
+                                                    <td class="text-center"><button class="btn btn-danger btn-xs remove" title="حذف" onClick="removeFromCart({{ $product->id }})" type="button"><i class="fa fa-times"></i></button></td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </li>
@@ -169,23 +172,15 @@
                                             <tbody>
                                             <tr>
                                                 <td class="text-right"><strong>جمع کل</strong></td>
-                                                <td class="text-right">132000 تومان</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><strong>کسر هدیه</strong></td>
-                                                <td class="text-right">4000 تومان</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><strong>مالیات</strong></td>
-                                                <td class="text-right">11880 تومان</td>
+                                                <td class="text-right">{{\App\Models\Cart::totalAmount()}} تومان</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right"><strong>قابل پرداخت</strong></td>
-                                                <td class="text-right">139880 تومان</td>
+                                                <td class="text-right">{{\App\Models\Cart::totalAmount()}} تومان</td>
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <p class="checkout"><a href="cart.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;&nbsp;&nbsp;<a href="checkout.html" class="btn btn-primary"><i class="fa fa-share"></i> تسویه حساب</a></p>
+                                        <p class="checkout"><a href="{{route('client.cart.index')}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;&nbsp;&nbsp;<a href="checkout.html" class="btn btn-primary"><i class="fa fa-share"></i> تسویه حساب</a></p>
                                     </div>
                                 </li>
                             </ul>
@@ -407,6 +402,28 @@
             data: {
                 _token: "{{csrf_token()}}",
                 quantity: quantity
+            },
+
+            // در صورت موفقیت آمیز بودن و عوض کن مقادیر مجموع آیتم ها و مجموع قیمت ها
+            success: function (data)
+            {
+                // تغییر دادن text یک فیلد
+                $('#total-items').text(data.cart.total_items);
+                $('#total-amount').text(data.cart.total_amount);
+            }
+        })
+    }
+
+
+    function removeFromCart(productId)
+    {
+        // مشخص کردن دیتاهایی که باید سمت سرور برود
+        $.ajax({
+            type: 'delete',
+            url: "/cart/" + productId,
+            // ورودی ها
+            data: {
+                _token: "{{csrf_token()}}",
             },
 
             // در صورت موفقیت آمیز بودن و عوض کن مقادیر مجموع آیتم ها و مجموع قیمت ها

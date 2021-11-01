@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\View;
@@ -54,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
 
         // model_name::observe()
         Category::observe(CategoryObserver::class);
+
 
 
     }

@@ -31,7 +31,19 @@ class CartController extends Controller
 
         return response([
             'msg' => 'successful',
-            'cart' => session()->get('cart')
+            'cart' => Cart::getCart()
         ], '200');
+    }
+
+
+    public function destroy(Product $product)
+    {
+        Cart::remove($product);
+
+        return response([
+            'msg' => 'removed',
+            'cart' => Cart::getCart()
+
+        ], 200);
     }
 }

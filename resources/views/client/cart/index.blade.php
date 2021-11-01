@@ -45,7 +45,7 @@
                                     <td class="text-left">{{$product->brand->name}}</td>
                                     <td class="text-left">
                                         <div class="input-group btn-block quantity">
-                                            <input type="text" name="quantity" value="{{$item['quantity']}}" size="1" class="form-control" />
+                                            <input type="text" name="quantity" value="{{$productQty}}" size="1" class="form-control" />
                                             <span class="input-group-btn">
                                         <button type="submit" data-toggle="tooltip" title="بروزرسانی" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
                                         <button type="button" data-toggle="tooltip" title="حذف" class="btn btn-danger" onClick=""><i class="fa fa-times-circle"></i></button>

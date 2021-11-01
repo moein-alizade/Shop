@@ -38,11 +38,13 @@ class Cart
         ];
 
 
+        // اضافه کردن محصول جدید به سبد
         session()->put([
             'cart' => $cart
         ]);
 
 
+        // Update totalItems and totalAmount
         $cart['total_items'] = Cart::totalItems();
         $cart['total_amount'] = Cart::totalAmount();
 
@@ -63,7 +65,10 @@ class Cart
 
         $totalAmount = 0;
 
-
+        if(!self::getCart())
+        {
+            return 0;
+        }
 
         foreach (self::getCart() as $cartItem) {
             // اگر این دو تا ایندکس وجود داشت
@@ -82,17 +87,29 @@ class Cart
     public static function getItems()
     {
         // استفاده از کالکشن و فیلتر کردن آرایه ی items
+        if(!self::getCart())
+        {
+           return [];
+        }
+
         return collect(self::getCart())->filter(function ($item){
             // اگه آرایه بود آنگاه بیا آیتم را بگردان
             return is_array($item);
         });
+
     }
 
 
 
     public static function totalItems()
     {
+
         $items = self::getItems();
+
+        if(!$items)
+        {
+            return [];
+        }
 
         return count($items);
     }
@@ -107,6 +124,53 @@ class Cart
         }
 
         return session()->get('cart');
+    }
+
+
+
+    public static function remove(Product $product)
+    {
+        // چک کنیم که آیا توی session قبلا سبد خرید ایجاد شده یا نه
+        // آیا قبلا سبد خرید داریم یا نه
+        if (session()->has('cart'))
+        {
+            // get session cart => گرفتن و ذخیره سبد خرید
+            $cart = self::getCart();
+        }
+
+
+
+
+        // A)  زمانی که آیتم های ما آرایه هستند می توانیم از روش زیر استفاده بکنیم
+        //        if (array_key_exists($product->id, $cart))
+        //        {
+        //            // unset => حذف کردن
+        //            unset($product->id, $cart);
+        //        }
+
+
+
+
+        // B)  زمانی که آیتم های ما کالکشن هستند می توانیم از روش زیر استفاده بکنیم
+        $cart = collect($cart)->forget($product->id);
+
+        // اضافه کردن محصول جدید به سبد
+        session()->put([
+            'cart' => $cart
+        ]);
+
+
+        // بعد از حذف کردن عنصر یا همان آیتم موردنظر ما سایر عناصر را حذف می کنیم
+        // Update totalItems and totalAmount
+        $cart['total_amount'] = self::totalAmount();
+        $cart['total_items'] = self::totalItems();
+
+
+        // اضافه کردن همه محتوایی که وجود دارد به cart یا همان سبد خرید
+        session()->put([
+            'cart' => $cart
+        ]);
+
     }
 
 
