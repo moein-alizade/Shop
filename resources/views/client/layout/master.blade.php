@@ -143,20 +143,20 @@
                                 {{-- session()->get('cart')['total_items'] => سبد خرید session در total_items فیلد  --}}
                                 <span id="cart-total">
                                     <span id="total-items">{{session()->get('cart')['total_items'] ?? 0}}</span> آیتم -
-                                    <span id="total-amount">{{session()->get('cart')['total_amount'] ?? 0}}</span> تومان
+                                    <span class="total-amount">{{session()->get('cart')['total_amount'] ?? 0}}</span> تومان
                                 </span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <table id="menu-cart" class="table">
-                                        <tbody>
+                                        <tbody id="cart-table-body">
                                             @foreach(\App\Models\Cart::getItems() as $item)
                                                 @php
                                                     $product = $item['product'];
                                                     $productQty = $item['quantity'];
                                                 @endphp
                                                 <tr id="cart-row-{{$product->id}}">
-                                                    <td class="text-center"><a href="product.html"><img class="img-thumbnail" title="{{$product->name}}" alt="{{$product->name}}" width="100" src="{{str_replace('public', '/storage', $product->image)}}"></a></td>
+                                                    <td class="text-center"><a href="product.html"><img class="img-thumbnail" title="{{$product->name}}" alt="{{$product->name}}" width="100" src="{{$product->image_path}}"></a></td>
                                                     <td class="text-left"><a href="product.html">{{$product->name}}</a></td>
                                                     <td class="text-right">x {{$productQty}}</td>
                                                     <td class="text-right">{{$product->cost_with_discount}} تومان</td>
@@ -172,11 +172,11 @@
                                             <tbody>
                                             <tr>
                                                 <td class="text-right"><strong>جمع کل</strong></td>
-                                                <td class="text-right">{{\App\Models\Cart::totalAmount()}} تومان</td>
+                                                <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right"><strong>قابل پرداخت</strong></td>
-                                                <td class="text-right">{{\App\Models\Cart::totalAmount()}} تومان</td>
+                                                <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -336,6 +336,9 @@
 <script type="text/javascript" src="/client/js/jquery.dcjqaccordion.min.js"></script>
 <script type="text/javascript" src="/client/js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/client/js/custom.js"></script>
+
+
+{{-- use jquery --}}
 <script>
     function like(productId) {
         // console.log('hi') => برای تست کردن
@@ -405,11 +408,41 @@
             },
 
             // در صورت موفقیت آمیز بودن و عوض کن مقادیر مجموع آیتم ها و مجموع قیمت ها
-            success: function (data)
-            {
+            success: function (data) {
                 // تغییر دادن text یک فیلد
                 $('#total-items').text(data.cart.total_items);
-                $('#total-amount').text(data.cart.total_amount);
+                $('.total-amount').text(data.cart.total_amount);
+
+
+
+                // محصول تازه اضافه شده
+                // console.log(data.cart[productId]);
+
+                // اگر productId این row  وجود نداشت و بزرگتر از صفر نبود بیا آن سطر را اضافه کن
+                if (!$('#cart-row-' + productId).length)
+                {
+
+                    var product = data.cart[productId]['product'];
+                    var productQty = data.cart[productId]['quantity'];
+
+
+
+                    // به انتهای یک table که در بالا هست یعنی به آخرین عنصر این جدول، بهش یک row دیگه اضافه بکند
+                    // به jquery بگوییم که به آخرین ردیفی که داخل آن table وجود دارد آنگاه بیا بهش یک row دیگه اضافه کن
+
+                   // $('#cart-table-body:last-child') = انتخاب کن آخرین فرزند این جدول مذکور
+                   // append() = اضافه کردن
+                    $('#cart-table-body:last-child').append(
+                        '<tr id="cart-row-' + product.id +'">'
+                            + '<td class="text-center"><a href="product.html"><img class="img-thumbnail" title="'+ product.name +'" alt="' + product.name + '" width="100" src="' + product.image_path +'"></a></td>'
+                            + '<td class="text-left"><a href="product.html">'+ product.name +'</a></td>'
+                            + '<td class="text-right">x '+ productQty +'</td>'
+                            + '<td class="text-right">'+ product.cost_with_discount +' تومان</td>'
+                            + '<td class="text-center"><button class="btn btn-danger btn-xs remove" title="حذف" onClick="removeFromCart('+ product.id +')" type="button"><i class="fa fa-times"></i></button></td>'
+                        + '</tr>'
+                    );
+                }
+
             }
         })
     }
@@ -429,15 +462,13 @@
             // در صورت موفقیت آمیز بودن و عوض کن مقادیر مجموع آیتم ها و مجموع قیمت ها
             success: function (data)
             {
-                // تغییر دادن text یک فیلد
+                // تغییر دادن text یک فیلد یعنی بنویس
                 $('#total-items').text(data.cart.total_items);
-                $('#total-amount').text(data.cart.total_amount);
+                $('.total-amount').text(data.cart.total_amount);
                 $('#cart-row-' + productId).remove();
             }
         })
     }
-
-
 
 </script>
 

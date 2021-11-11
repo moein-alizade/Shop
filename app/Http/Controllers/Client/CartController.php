@@ -32,7 +32,7 @@ class CartController extends Controller
         return response([
             'msg' => 'successful',
             'cart' => Cart::getCart()
-        ], '200');
+        ], '201');
     }
 
 

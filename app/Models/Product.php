@@ -14,6 +14,12 @@ class Product extends Model
 
     protected $guarded = [];
 
+    // $appends = بصورت پیش فرض وجود نخواهد داشت json در response  و در غیر اینصورت این فیلد مجازی به  response اضافه شدن فیلد مجازی به
+    protected $appends = [
+        'cost_with_discount',
+        'image_path'
+    ];
+
 
     // one to one (show parent a category)
     public function offer()
@@ -153,6 +159,12 @@ class Product extends Model
     public function getIsLikedAttribute()
     {
         return $this->likes()->where('user_id', auth()->id())->exists();
+    }
+
+
+    public function getImagePathAttribute()
+    {
+        return str_replace('public', '/storage', $this->image);
     }
 
 }
