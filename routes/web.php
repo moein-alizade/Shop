@@ -19,6 +19,7 @@ use App\Http\Controllers\Client\CommentController;
 use App\Http\Controllers\Client\LikeController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\RegisterController;
+use App\Http\Controllers\OrderController;
 use App\Http\Middleware\CheckPermission;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,8 @@ Route::prefix('')->name('client.')->group(function() {
     Route::post('/cart/{product}', [CartController::class, 'store'])->name('cart.store');
     Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('cart.destroy');
 
+    route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
+    route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
 
 });
 

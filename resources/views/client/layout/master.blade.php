@@ -149,16 +149,16 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <table id="menu-cart" class="table">
-                                        <tbody id="cart-table-body">
+                                        <tbody class="cart-table-body">
                                             @foreach(\App\Models\Cart::getItems() as $item)
                                                 @php
                                                     $product = $item['product'];
                                                     $productQty = $item['quantity'];
                                                 @endphp
-                                                <tr id="cart-row-{{$product->id}}">
+                                                <tr class="cart-row-{{$product->id}}">
                                                     <td class="text-center"><a href="product.html"><img class="img-thumbnail" title="{{$product->name}}" alt="{{$product->name}}" width="100" src="{{$product->image_path}}"></a></td>
                                                     <td class="text-left"><a href="product.html">{{$product->name}}</a></td>
-                                                    <td class="text-right">x {{$productQty}}</td>
+                                                    <td class="text-right qty">x {{$productQty}}</td>
                                                     <td class="text-right">{{$product->cost_with_discount}} تومان</td>
                                                     <td class="text-center"><button class="btn btn-danger btn-xs remove" title="حذف" onClick="removeFromCart({{ $product->id }})" type="button"><i class="fa fa-times"></i></button></td>
                                                 </tr>
@@ -180,7 +180,7 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <p class="checkout"><a href="{{route('client.cart.index')}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;&nbsp;&nbsp;<a href="checkout.html" class="btn btn-primary"><i class="fa fa-share"></i> تسویه حساب</a></p>
+                                        <p class="checkout"><a href="{{route('client.cart.index')}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;&nbsp;&nbsp;<a href="{{route('client.orders.create')}}" class="btn btn-primary"><i class="fa fa-share"></i> ثبت سفارش</a></p>
                                     </div>
                                 </li>
                             </ul>
@@ -397,6 +397,8 @@
         }
 
 
+        // $ = jquery
+
         // مشخص کردن دیتاهایی که باید سمت سرور برود
         $.ajax({
             type: 'post',
@@ -419,7 +421,7 @@
                 // console.log(data.cart[productId]);
 
                 // اگر productId این row  وجود نداشت و بزرگتر از صفر نبود بیا آن سطر را اضافه کن
-                if (!$('#cart-row-' + productId).length)
+                if (!$('.cart-row-' + productId).length)
                 {
 
                     var product = data.cart[productId]['product'];
@@ -430,17 +432,23 @@
                     // به انتهای یک table که در بالا هست یعنی به آخرین عنصر این جدول، بهش یک row دیگه اضافه بکند
                     // به jquery بگوییم که به آخرین ردیفی که داخل آن table وجود دارد آنگاه بیا بهش یک row دیگه اضافه کن
 
-                   // $('#cart-table-body:last-child') = انتخاب کن آخرین فرزند این جدول مذکور
+                   // $('.cart-table-body:last-child') = انتخاب کن آخرین فرزند این جدول مذکور
                    // append() = اضافه کردن
-                    $('#cart-table-body:last-child').append(
-                        '<tr id="cart-row-' + product.id +'">'
+                    $('.cart-table-body:last-child').append(
+                        '<tr class="cart-row-' + product.id +'">'
                             + '<td class="text-center"><a href="product.html"><img class="img-thumbnail" title="'+ product.name +'" alt="' + product.name + '" width="100" src="' + product.image_path +'"></a></td>'
                             + '<td class="text-left"><a href="product.html">'+ product.name +'</a></td>'
-                            + '<td class="text-right">x '+ productQty +'</td>'
+                            + '<td class="text-right qty">x '+ productQty +'</td>'
                             + '<td class="text-right">'+ product.cost_with_discount +' تومان</td>'
                             + '<td class="text-center"><button class="btn btn-danger btn-xs remove" title="حذف" onClick="removeFromCart('+ product.id +')" type="button"><i class="fa fa-times"></i></button></td>'
                         + '</tr>'
                     );
+                }
+
+                else
+                {
+                    var productQty = data.cart[productId]['quantity'];
+                    $('.cart-row-' + productId + ' .qty').text('x ' + productQty);
                 }
 
             }
@@ -450,6 +458,8 @@
 
     function removeFromCart(productId)
     {
+        // console.log(productId, 'hi');
+
         // مشخص کردن دیتاهایی که باید سمت سرور برود
         $.ajax({
             type: 'delete',
@@ -465,10 +475,14 @@
                 // تغییر دادن text یک فیلد یعنی بنویس
                 $('#total-items').text(data.cart.total_items);
                 $('.total-amount').text(data.cart.total_amount);
-                $('#cart-row-' + productId).remove();
+                $('.cart-row-' + productId).remove();
+                // console.log('.cart-row-' + productId);
             }
         })
     }
+
+
+    function updateCart(productId) {}
 
 </script>
 

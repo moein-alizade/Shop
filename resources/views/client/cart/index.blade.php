@@ -26,7 +26,7 @@
                                 <td class="text-right">کل</td>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="cart-table-body">
                             @foreach($items as $item)
                                 @php
                                     $product = $item['product'];
@@ -34,7 +34,7 @@
                                 @endphp
 
 
-                                <tr>
+                                <tr class="cart-row-{{$product->id}}">
                                     <td class="text-center">
                                         <a href="product.html">
                                             <img width="100" src="{{str_replace('public', '/storage', $product->image)}}" alt="تبلت ایسر" title="تبلت ایسر" class="img-thumbnail" />
@@ -45,11 +45,11 @@
                                     <td class="text-left">{{$product->brand->name}}</td>
                                     <td class="text-left">
                                         <div class="input-group btn-block quantity">
-                                            <input type="text" name="quantity" value="{{$productQty}}" size="1" class="form-control" />
+                                            <input type="text" name="qty-{{ $product->id }}" id="qty-{{ $product->id }}" value="{{$productQty}}" size="1" class="form-control" />
                                             <span class="input-group-btn">
-                                        <button type="submit" data-toggle="tooltip" title="بروزرسانی" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
-                                        <button type="button" data-toggle="tooltip" title="حذف" class="btn btn-danger" onClick=""><i class="fa fa-times-circle"></i></button>
-                                        </span>
+                                                <button type="submit" data-toggle="tooltip" title="بروزرسانی" onclick="updateCart({{ $product->id }})" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
+                                                <button type="button" data-toggle="tooltip" title="حذف" class="btn btn-danger" onClick="removeFromCart({{ $product->id }})"><i class="fa fa-times-circle"></i></button>
+                                            </span>
                                         </div>
                                     </td>
                                     <td class="text-right">{{$product->cost_with_discount}} تومان</td>
@@ -62,14 +62,16 @@
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-8">
                             <table class="table table-bordered">
+                                <tbody class="cart-table-body">
                                 <tr>
-                                    <td class="text-right"><strong>جمع کل:</strong></td>
-                                    <td class="text-right">{{$totalAmount}} تومان</td>
+                                    <td class="text-right"><strong>جمع کل</strong></td>
+                                    <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-right"><strong>قابل پرداخت :</strong></td>
-                                    <td class="text-right">{{$totalAmount}} تومان</td>
+                                    <td class="text-right"><strong>قابل پرداخت</strong></td>
+                                    <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
                                 </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
