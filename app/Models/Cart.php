@@ -172,4 +172,12 @@ class Cart
         ]);
 
     }
+
+    public static function removeAll()
+    {
+        session()->forget('cart');
+    }
+
 }
+
+
