@@ -72,6 +72,10 @@ Route::prefix('')->name('client.')->group(function() {
 
     route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
     route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
+    route::get('/orders/payment/callback', [OrderController::class, 'callback'])->name('orders.callback');
+    route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+
+
 
 });
 

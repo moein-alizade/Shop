@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Shetabit\Multipay\Invoice;
+use Shetabit\Payment\Facade\Payment;
+
 
 class OrderController extends Controller
 {
@@ -44,7 +47,40 @@ class OrderController extends Controller
         // کامل خالی کردن سبد خرید
         Cart::removeAll();
 
+        // invoice => صورت حساب برای مقداری که قرار هست پرداخت بشود را تعیین بکنیم
+        $invoice = (new Invoice)->amount($order->amount);
+
+        // انجام شدن پرداخت
+        return Payment::purchase($invoice, function ($driver, $transactionId) use ($order){
+            $order->update([
+                'transaction_id' => $transactionId
+            ]);
+        })->pay()->render();
+
 
         return redirect()->back();
     }
+
+
+    public function callback(Request $request)
+    {
+        // dd($request->all());
+        $order = Order::query()->where('transaction_id', '=', $request->get('Authority'))->first();
+
+        $order->update([
+            'payment_status' => $request->get('Status')
+        ]);
+
+
+        return redirect(route('client.orders.show', $order));
+    }
+
+
+    public function show(Order $order)
+    {
+        return view('client.orders.show', [
+            'order' => $order
+        ]);
+    }
+
 }
