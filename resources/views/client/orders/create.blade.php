@@ -78,24 +78,14 @@
                                                         <td class="text-right">{{$product->cost_with_discount * $productQty}} تومان</td>
                                                     </tr>
                                                 @endforeach
+                                                <tr class="bg-warning text-danger">
+                                                    <td class="text-right"><strong>جمع کل</strong></td>
+                                                    <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
+                                                    <td class="text-right"><strong>قابل پرداخت</strong></td>
+                                                    <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
+                                                </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-4 col-sm-offset-8">
-                                                <table class="table table-bordered">
-                                                    <tbody class="cart-table-body">
-                                                    <tr>
-                                                        <td class="text-right"><strong>جمع کل</strong></td>
-                                                        <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-right"><strong>قابل پرداخت</strong></td>
-                                                        <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

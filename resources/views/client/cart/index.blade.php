@@ -56,28 +56,18 @@
                                     <td class="text-right">{{$product->cost_with_discount * $productQty}} تومان</td>
                                 </tr>
                             @endforeach
+                            <tr class="bg-warning text-danger">
+                                <td class="text-right"><strong>جمع کل</strong></td>
+                                <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
+                                <td class="text-right"><strong>قابل پرداخت</strong></td>
+                                <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-4 col-sm-offset-8">
-                            <table class="table table-bordered">
-                                <tbody class="cart-table-body">
-                                <tr>
-                                    <td class="text-right"><strong>جمع کل</strong></td>
-                                    <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-right"><strong>قابل پرداخت</strong></td>
-                                    <td class="text-right total-amount">{{\App\Models\Cart::totalAmount()}} تومان</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                     <div class="buttons">
-                        <div class="pull-left"><a href="index.html" class="btn btn-default">ادامه خرید</a></div>
-                        <div class="pull-right"><a href="checkout.html" class="btn btn-primary">تسویه حساب</a></div>
+                        <div class="pull-left"><a href="{{ route('client.index') }}" class="btn btn-default">ادامه خرید</a></div>
+                        <div class="pull-right"><a href="{{ route('client.orders.create') }}" class="btn btn-primary">تسویه حساب</a></div>
                     </div>
                 </div>
                 <!--Middle Part End -->

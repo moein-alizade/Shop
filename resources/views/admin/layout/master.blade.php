@@ -52,12 +52,12 @@
             <!-- mini logo -->
             <div class="logo-mini">
                 <span class="light-logo"><img src="../images/logo-light.png" alt="logo"></span>
-                <span class="dark-logo"><img src="../images/logo-dark.png" alt="logo"></span>
+                <span class="dark-logo"><img src="{{ asset('/admin/images/logo-dark.png') }}" alt="logo"></span>
             </div>
             <!-- logo-->
             <div class="logo-lg">
                 <span class="light-logo"><img src="../images/logo-light-text.png" alt="logo"></span>
-                <span class="dark-logo"><img src="../images/logo-dark-text.png" alt="logo"></span>
+                <span class="dark-logo"><img src="{{ asset('/admin/images/logo-dark-text.png') }}" alt="logo"></span>
             </div>
         </a>
         <!-- Header Navbar -->
@@ -80,7 +80,7 @@
                     <!-- User Account-->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/images/avatar/7.jpg" class="user-image rounded-circle" alt="User Image">
+                            <img src="{{ asset('/admin/images/avatar/7.jpg') }}" class="user-image rounded-circle" alt="User Image">
                         </a>
                         <ul class="dropdown-menu animated flipInY">
                             <!-- User image -->
@@ -583,16 +583,13 @@
                 </li>
 
 
-
-
-
                 <li>
-                    <a href="pages/auth_login.html">
-                        <i class="mdi mdi-directions"></i>
-                        <span>Log Out</span>
-                    </a>
+                    <form action="{{route('client.logout')}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" name="logout" class="btn btn-sm btn-danger w-p75 mr-lg-25" value="Log Out">
+                    </form>
                 </li>
-
             </ul>
         </section>
     </aside>
